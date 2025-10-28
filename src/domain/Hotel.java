@@ -8,27 +8,27 @@ public class Hotel implements Serializable{
     private List<Room> rooms;
     private List<Reservation> reservations;
     private List<Guest> guests;
-    private String name = "", adress = "", hotelEmail = "";
+    private String hotelName = "", hotelAdress = "", hotelEmail = "";
     private int hotelPhoneNum;
 
-    public Hotel(String name, String adress, String hotelEmail, int hotelPhoneNum) {
+    public Hotel(String hotelName, String hotelAdress, String hotelEmail, int hotelPhoneNum) {
         rooms = new ArrayList<>();
         reservations = new ArrayList<>();
         guests = new ArrayList<>();
 
-        this.name = name;
-        this.adress = adress;
+        this.hotelName = hotelName;
+        this.hotelAdress = hotelAdress;
         this.hotelPhoneNum = hotelPhoneNum;
         this.hotelEmail = hotelEmail;
 
     }
 
     public String getHotelName() {
-        return this.name;
+        return this.hotelName;
     }
 
     public String getHotelAdress() {
-        return this.adress;
+        return this.hotelAdress;
     }
 
     public String getHotelEmail() {
@@ -51,12 +51,12 @@ public class Hotel implements Serializable{
         return guests;
     }
 
-    public void setHotelName(String name) {
-        this.name = name;
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
     }
 
-    public void setHotelAdress(String adress) {
-        this.adress = adress;
+    public void setHotelAdress(String hotelAdress) {
+        this.hotelAdress = hotelAdress;
     }
 
     public void setHotelEmail(String hotelEmail) {
