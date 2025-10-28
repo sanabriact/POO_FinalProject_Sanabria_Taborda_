@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 public class Reservation implements Serializable{
      private Guest guest;
-    //private Room room;
+    private Room room;
     private int resNumber = 0;
     private boolean status;
 
-    public Reservation(Guest guest /*,Room room */){
+    public Reservation(Guest guest ,Room room ){
         this.guest = guest;
-        //this.room = room;
+        this.room = room;
         this.resNumber += 1;
         this.status = true;
     }
@@ -19,9 +19,9 @@ public class Reservation implements Serializable{
         return guest;
     }
 
-    /*public Room getRoom(){
+    public Room getRoom(){
         return room;
-    } */
+    } 
 
     public boolean getStatus(){
         return status;
@@ -39,7 +39,7 @@ public class Reservation implements Serializable{
         this.status = false;
     }
 
-    /*public void setRoom(Room room){
+    public void setRoom(Room room){
         this.room = room;    
-    } */
+    } 
 }
