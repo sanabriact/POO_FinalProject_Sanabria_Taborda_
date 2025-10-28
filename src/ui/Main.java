@@ -1,5 +1,7 @@
 package ui;
 
-public class Main {
+import java.io.Serializable;
+
+public class Main implements Serializable{
     
 }
