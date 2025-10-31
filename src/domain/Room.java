@@ -52,6 +52,10 @@ public class Room implements Serializable {
         return 99.99;
     }
 
+    public boolean getAvailability() {
+        return this.available;
+    }
+
     public void setRoomNum(int roomNum) {
         this.roomNum = roomNum;
     }
