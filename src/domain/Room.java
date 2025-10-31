@@ -56,7 +56,6 @@ public class Room implements Serializable {
 
     public void setRoomBeds(int beds) {
         this.beds = beds;
-        ;
     }
 
     public void setRoomBaths(int baths) {
