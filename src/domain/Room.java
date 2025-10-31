@@ -5,12 +5,14 @@ import java.io.Serializable;
 public class Room implements Serializable {
     private int roomNum, beds, baths;
     private String roomType = "";
+    private boolean available;
 
     public Room(int roomNum, int beds, int baths, String roomType) {
         this.roomNum = roomNum;
         this.beds = beds;
         this.baths = baths;
         this.roomType = roomType;
+        this.available = true;
 
     }
 
@@ -64,6 +66,10 @@ public class Room implements Serializable {
 
     public void setRoomType(String roomType) {
         this.roomType = roomType;
+    }
+
+    public void setAvailabilty(boolean available){
+        this.available = available; 
     }
 
     @Override
