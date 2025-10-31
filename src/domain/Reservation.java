@@ -37,6 +37,7 @@ public class Reservation implements Serializable{
 
     public void disableReservation(){
         this.status = false;
+        room.setAvailabilty(true);
     }
 
     public void setRoom(Room room){
