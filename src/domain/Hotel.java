@@ -97,9 +97,9 @@ public class Hotel implements Serializable{
         return null;
     }
 
-    public String findGuestById(String ID) {
+    public String findGuestById(int ID) {
         for(Guest g: guests) {
-            if(ID.equals(g.getGuestId())){
+            if(ID == (g.getGuestId())){
                 return g.toString();
             }
         }
