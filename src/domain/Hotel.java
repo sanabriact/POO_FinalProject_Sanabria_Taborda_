@@ -86,4 +86,26 @@ public class Hotel implements Serializable{
         Guest guest = reservation.getGuest();
         guests.remove(guest);
     }
+
+    public String findReservationById(int num){
+        for(Reservation r: reservations) {
+            if(num == (r.getReservationNumber())){
+                return r.toString();
+            }
+        }
+
+        return null;
+    }
+
+    public String findGuestById(String ID) {
+        for(Guest g: guests) {
+            if(ID.equals(g.getGuestId())){
+                return g.toString();
+            }
+        }
+
+        return null;
+    }
+
+    
 }
