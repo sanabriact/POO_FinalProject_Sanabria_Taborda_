@@ -8,6 +8,7 @@ public class Hotel implements Serializable{
     private List<Room> rooms;
     private List<Reservation> reservations;
     private List<Guest> guests;
+    private List<Reservation> register;
     private String hotelName = "", hotelAdress = "", hotelEmail = "";
     private int hotelPhoneNum;
 
@@ -15,6 +16,7 @@ public class Hotel implements Serializable{
         rooms = new ArrayList<>();
         reservations = new ArrayList<>();
         guests = new ArrayList<>();
+        register = new ArrayList<>();
 
         this.hotelName = hotelName;
         this.hotelAdress = hotelAdress;
@@ -75,6 +77,8 @@ public class Hotel implements Serializable{
         reservations.add(reservation);
         Guest guest = reservation.getGuest();
         guests.add(guest);
+
+        register.add(reservation);
     }
 
     public void deleteRoom(Room room) {
