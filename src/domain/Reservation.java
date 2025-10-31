@@ -42,4 +42,10 @@ public class Reservation implements Serializable{
     public void setRoom(Room room){
         this.room = room;    
     } 
+
+    @Override
+    public String toString() {
+
+        return "Reservation: {Number: " + resNumber + ", status: " + status + "}";
+    }
 }
