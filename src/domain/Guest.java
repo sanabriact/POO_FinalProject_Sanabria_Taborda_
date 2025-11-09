@@ -5,10 +5,10 @@ import java.io.Serializable;
 public class Guest implements Serializable {
     private String name;
     private String email;
-    private int phoneNumber;
+    private long phoneNumber;
     private int id;
 
-    public Guest(String name, String email, int phoneNumber, int id) {
+    public Guest(String name, String email, long phoneNumber, int id) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -23,7 +23,7 @@ public class Guest implements Serializable {
         return email;
     }
 
-    public int getGuestPhoneNum() {
+    public long getGuestPhoneNum() {
         return phoneNumber;
     }
 

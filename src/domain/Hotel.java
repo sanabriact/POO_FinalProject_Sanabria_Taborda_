@@ -9,9 +9,9 @@ public class Hotel implements Serializable{
     private List<Reservation> reservations;
     private List<Guest> guests;
     private String hotelName = "", hotelAdress = "", hotelEmail = "";
-    private int hotelPhoneNum;
+    private long hotelPhoneNum;
 
-    public Hotel(String hotelName, String hotelAdress, String hotelEmail, int hotelPhoneNum) {
+    public Hotel(String hotelName, String hotelAdress, String hotelEmail, long hotelPhoneNum) {
         rooms = new ArrayList<>();
         reservations = new ArrayList<>();
         guests = new ArrayList<>();
@@ -35,7 +35,7 @@ public class Hotel implements Serializable{
         return this.hotelEmail;
     }
 
-    public int getHotelPhoneNum() {
+    public Long getHotelPhoneNum() {
         return this.hotelPhoneNum;
     }
 
@@ -63,7 +63,7 @@ public class Hotel implements Serializable{
         this.hotelEmail = hotelEmail;
     }
 
-    public void setHotelPhoneNum(int hotelPhoneNum) {
+    public void setHotelPhoneNum(long hotelPhoneNum) {
         this.hotelPhoneNum = hotelPhoneNum;
     }
 

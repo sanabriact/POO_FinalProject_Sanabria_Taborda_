@@ -3,7 +3,7 @@ package domain;
 import java.io.Serializable;
 
 public class Reservation implements Serializable{
-     private Guest guest;
+    private Guest guest;
     private Room room;
     private int resNumber = 0;
     private boolean status;
