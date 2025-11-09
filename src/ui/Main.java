@@ -1,7 +1,6 @@
 package ui;
 
-import java.io.Serializable;
-
+import data.HotelStorage;
 import domain.*;
 import utils.IOConsoleUser;
 
@@ -19,6 +18,7 @@ public class Main {
         boolean menu = true;
         int option;
 
+        HotelStorage.load(FILE_NAME);
         while (menu) {
             // HOTEL MENU
             showHotelMenu();
@@ -72,6 +72,9 @@ public class Main {
                 }
             }
         }
+
+        HotelStorage.save(hotel, FILE_NAME);
+
     }
 
     private static void showHotelMenu() {
