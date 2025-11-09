@@ -97,14 +97,37 @@ public class Hotel implements Serializable{
         return null;
     }
 
-    public String findGuestById(int ID) {
+    public String findGuestById(int id) {
         for(Guest g: guests) {
-            if(ID == (g.getGuestId())){
+            if(id == (g.getGuestId())){
                 return g.toString();
             }
         }
 
         return null;
+    }
+
+    public Room findRoomById(int id){
+        for(Room room : rooms){
+            if(id == room.getRoomNum()){
+                return room;
+            }
+        }
+        return null;
+    }
+
+    public List<Room> getAvailableRooms(){
+        List<Room> availableRooms = new ArrayList<>();
+        for(Room room : rooms){
+            if(room.getAvailability() == true){
+                availableRooms.add(room);
+            }
+        }
+        return availableRooms;
+    }
+
+    public void disableReservation(Reservation reservation){
+        reservation.disableReservation();
     }
 
     

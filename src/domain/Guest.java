@@ -6,9 +6,9 @@ public class Guest implements Serializable {
     private String name;
     private String email;
     private long phoneNumber;
-    private int id;
+    private long id;
 
-    public Guest(String name, String email, long phoneNumber, int id) {
+    public Guest(String name, String email, long phoneNumber, long id) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -27,7 +27,7 @@ public class Guest implements Serializable {
         return phoneNumber;
     }
 
-    public int getGuestId() {
+    public long getGuestId() {
         return id;
     }
 

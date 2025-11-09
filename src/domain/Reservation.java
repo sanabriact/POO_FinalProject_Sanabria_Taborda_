@@ -13,6 +13,7 @@ public class Reservation implements Serializable{
         this.room = room;
         this.resNumber += 1;
         this.status = true;
+        this.room.setAvailabilty(false);
     }
 
     public Guest getGuest(){

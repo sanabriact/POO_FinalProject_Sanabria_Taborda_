@@ -11,8 +11,12 @@ public class Room implements Serializable {
         this.roomNum = roomNum;
         this.beds = beds;
         this.baths = baths;
-        this.roomType = roomType;
         this.available = true;
+        if (roomType.equals("Basic") || roomType.equals("Medium") || roomType.equals("Suit")) {
+            this.roomType = roomType;
+        }else{
+            this.roomType = null;
+        }
 
     }
 
@@ -30,6 +34,10 @@ public class Room implements Serializable {
 
     public String getRoomType() {
         return this.roomType;
+    }
+
+    public boolean getAvailability(){
+        return available;
     }
 
     public boolean getSeaView() {
@@ -68,8 +76,8 @@ public class Room implements Serializable {
         this.roomType = roomType;
     }
 
-    public void setAvailabilty(boolean available){
-        this.available = available; 
+    public void setAvailabilty(boolean available) {
+        this.available = available;
     }
 
     @Override
