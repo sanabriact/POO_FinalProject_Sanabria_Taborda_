@@ -56,7 +56,7 @@ public class Main {
                                 }
 
                                 default -> {
-                                    System.out.println("\n- Invalid option. Try again.");
+                                    System.out.println("\n- Leaving...");
                                 }
                             }
                         }
@@ -66,7 +66,7 @@ public class Main {
                         }
                         // case 3 ->{//Employees}
                         default -> {
-                            System.out.println("\n- Invalid option. Try again.");
+                            System.out.println("\n- Leaving...");
                         }
                     }
                 }
@@ -85,7 +85,7 @@ public class Main {
     }
 
     private static void showHotelMenu() {
-        System.out.println("\n- - - - - - - - HOTEL MENU - - - - - - - -");
+        System.out.println("\n- - - - - - - - HOTEL " + hotel.getHotelName().toUpperCase() + " MENU - - - - - - - -");
         System.out.println("(1) Hotel Data.");
         System.out.println("(2) Administrator menu.");
         System.out.println("(3) Save and exit.\n");
@@ -153,10 +153,10 @@ public class Main {
         System.out.println("(5) Change room.\n");
     }
 
-    private static void showReservationRecord(){
+    private static void showReservationRecord() {
         System.out.println("\n- - - - - - - - RESERVATION RECORD - - - - - - - -");
-        for (Reservation reservation : hotel.getReservationList()){
-         System.out.println(reservation.toString());   
+        for (Reservation reservation : hotel.getReservationList()) {
+            System.out.println(reservation.toString());
         }
         System.out.println();
     }
@@ -179,19 +179,19 @@ public class Main {
         switch (option) {
             case 1 -> {
                 String guestName = keyboard.inputText("\n- Enter a new guest name: ");
-                hotel.findReservationByID(reservationNumber).getGuest().setGuestName(guestName);
+                hotel.findReservationById(reservationNumber).getGuest().setGuestName(guestName);
             }
             case 2 -> {
                 String guestEmail = keyboard.inputText("\n- Enter a new guest email adress: ");
-                hotel.findReservationByID(reservationNumber).getGuest().setGuestEmail(guestEmail);
+                hotel.findReservationById(reservationNumber).getGuest().setGuestEmail(guestEmail);
             }
             case 3 -> {
                 long phoneNumber = keyboard.inputLong("\n- Enter a new guest phone number: ");
-                hotel.findReservationByID(reservationNumber).getGuest().setPhoneNumber(phoneNumber);
+                hotel.findReservationById(reservationNumber).getGuest().setPhoneNumber(phoneNumber);
             }
             case 4 -> {
                 long id = keyboard.inputLong("\n- Enter a new guest ID: ");
-                hotel.findReservationByID(reservationNumber).getGuest().setGuestId(id);
+                hotel.findReservationById(reservationNumber).getGuest().setGuestId(id);
             }
             case 5 -> {
                 boolean condition = false;
@@ -199,7 +199,7 @@ public class Main {
                     int roomNumber = keyboard.inputInt("\n- Enter a new room number: ");
                     Room room = hotel.findRoomById(roomNumber);
                     if (room != null && room.getAvailability()) {
-                        hotel.findReservationByID(reservationNumber).setRoom(room);
+                        hotel.findReservationById(reservationNumber).setRoom(room);
                         condition = true;
                         System.out.println("\n- Room changed successfully.");
                     } else {
@@ -207,8 +207,11 @@ public class Main {
                     }
                 } while (!condition);
             }
+            case 6 -> {
+                System.out.println("\n- Leaving... ");
+            }
             default -> {
-
+                System.out.println("\n- Invalid option. Try again.");
             }
         }
 
