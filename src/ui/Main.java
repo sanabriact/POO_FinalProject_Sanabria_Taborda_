@@ -9,7 +9,7 @@ public class Main {
     private static IOConsoleUser keyboard = new IOConsoleUser();
 
     /* PARA TESTEAR */static Hotel hotel = new Hotel("PUTICLUB", "Cali", "mario.bravoo@gmail.com", 3015326737L);
-    
+
     public static void main(String[] args) {
         /* PARA TESTEAR */hotel.addRoom(new Room(101, 2, 1, "Basic"));
         /* PARA TESTEAR */hotel.addRoom(new Room(102, 2, 1, "Medium"));
@@ -18,7 +18,7 @@ public class Main {
         boolean menu = true;
         int option;
 
-        HotelStorage.load(FILE_NAME);
+        // HotelStorage.load(FILE_NAME);
         while (menu) {
             // HOTEL MENU
             showHotelMenu();
@@ -42,16 +42,17 @@ public class Main {
                                     addReservation();
                                 }
                                 case 2 -> {
-                                    //Show available rooms
+                                    // Show available rooms
                                     showAvailableRooms();
                                 }
 
                                 case 3 -> {
-                                    //Disable reservation
+                                    // Disable reservation
                                     disableReservation();
                                 }
                                 case 4 -> {
-
+                                    // Change reservation data
+                                    changeReservationData();
                                 }
 
                                 default -> {
@@ -61,19 +62,24 @@ public class Main {
                         }
                         case 2 -> {
                             // Reservation record
+                            showReservationRecord();
                         }
                         // case 3 ->{//Employees}
                         default -> {
                         }
                     }
                 }
-                default -> {
+                case 3 -> {
                     menu = false;
+                }
+
+                default -> {
+                    System.out.println("Invalid option. Try again.");
                 }
             }
         }
 
-        HotelStorage.save(hotel, FILE_NAME);
+        // HotelStorage.save(hotel, FILE_NAME);
 
     }
 
@@ -117,23 +123,17 @@ public class Main {
         // ocupada.
         do {
             int roomNum = keyboard.inputInt("- Enter the room number that the customer requested: ");
+            Room room = hotel.findRoomById(roomNum);
 
-            for (Room room : hotel.getAvailableRooms()) {
-                if (roomNum == room.getRoomNum()) {
-                    condition = true;
-                }
-            }
-
-            if (condition == true) {
-                Room room = hotel.findRoomById(roomNum);
+            if (room != null && room.getAvailability()) {
                 Reservation reservation = new Reservation(guest, room);
                 hotel.addReservation(reservation);
                 System.out.println("- Reservation created successfully");
+                condition = true;
             } else {
-                System.out.println("The room isn't available. Try again.");
+                System.out.println("- The room isn't available or doesn't exist. Try again.\n");
             }
-
-        } while (condition == false);
+        } while (!condition);
     }
 
     private static void showAvailableRooms() {
@@ -143,14 +143,72 @@ public class Main {
         }
 
     }
-    private static void disableReservation(){
-        long id =keyboard.inputLong("- Enter guest's ID: ");
-        for(Reservation reservation: hotel.getReservationList()){
-            if(id == reservation.getGuest().getGuestId()){
+
+    private static void showChangeReservationMenu() {
+        System.out.println("\n(1) Change guest name.");
+        System.out.println("(2) Change guest email.");
+        System.out.println("(3) Change guest phone number.");
+        System.out.println("(4) Change guest ID.");
+        System.out.println("(5) Change room.");
+    }
+
+    private static void showReservationRecord(){
+        System.out.println("- - - - - - - - RESERVATION RECORD - - - - - - - -");
+        for (Reservation reservation : hotel.getReservationList()){
+         System.out.println(reservation.toString());   
+        }
+    }
+
+    private static void disableReservation() {
+        long id = keyboard.inputLong("- Enter guest's ID: ");
+        for (Reservation reservation : hotel.getReservationList()) {
+            if (id == reservation.getGuest().getGuestId()) {
                 hotel.disableReservation(reservation);
             }
         }
-    }    
+    }
 
+    private static void changeReservationData() {
+        int reservationNumber = keyboard
+                .inputInt("- Enter the reservation number for which you are going to change the data");
+        System.out.println("Reservation found.");
+        showChangeReservationMenu();
+        int option = keyboard.inputInt("- Enter an option: ");
+        switch (option) {
+            case 1 -> {
+                String guestName = keyboard.inputText("- Enter a new guest name: ");
+                hotel.findReservationByID(reservationNumber).getGuest().setGuestName(guestName);
+            }
+            case 2 -> {
+                String guestEmail = keyboard.inputText("- Enter a new guest email adress: ");
+                hotel.findReservationByID(reservationNumber).getGuest().setGuestEmail(guestEmail);
+            }
+            case 3 -> {
+                long phoneNumber = keyboard.inputLong("- Enter a new guest phone number: ");
+                hotel.findReservationByID(reservationNumber).getGuest().setPhoneNumber(phoneNumber);
+            }
+            case 4 -> {
+                long id = keyboard.inputLong("- Enter a new guest ID: ");
+                hotel.findReservationByID(reservationNumber).getGuest().setGuestId(id);
+            }
+            case 5 -> {
+                boolean condition = false;
+                do {
+                    int roomNumber = keyboard.inputInt("- Enter a new room number: ");
+                    Room room = hotel.findRoomById(roomNumber);
+                    if (room != null && room.getAvailability()) {
+                        hotel.findReservationByID(reservationNumber).setRoom(room);
+                        condition = true;
+                        System.out.println("- Room changed successfully.");
+                    } else {
+                        System.out.println("- The room isn't available or doesn't exist. Try again.\n");
+                    }
+                } while (!condition);
+            }
+            default -> {
+
+            }
+        }
+
+    }
 }
- 

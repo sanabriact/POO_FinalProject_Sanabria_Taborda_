@@ -17,6 +17,10 @@ public class IODialogUser implements IOUser{
         return Integer.parseInt(inputText(message));
     }
 
+    public long inputLong(String message){
+        return Long.parseLong(inputText(message));
+    }
+
     public float inputFloat(String message){
         return Float.parseFloat(inputText(message));
     }

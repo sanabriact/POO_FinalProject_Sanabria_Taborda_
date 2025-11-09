@@ -47,7 +47,7 @@ public class Guest implements Serializable {
         }
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         if (phoneNumber > 0) {
             this.phoneNumber = phoneNumber;
         } else {
@@ -55,7 +55,7 @@ public class Guest implements Serializable {
         }
     }
 
-    public void setGuestId(int id) {
+    public void setGuestId(long id) {
         if (id > 0) {
             this.id = id;
         } else {
