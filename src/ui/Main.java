@@ -9,8 +9,9 @@ public class Main {
     private static String FILE_NAME = "hotel.dat";
     private static IOConsoleUser keyboard = new IOConsoleUser();
 
+    /* PARA TESTEAR */static Hotel hotel = new Hotel("PUTICLUB", "Cali", "mario.bravoo@gmail.com", 3015326737L);
+    
     public static void main(String[] args) {
-        /* PARA TESTEAR */Hotel hotel = new Hotel("PUTICLUB", "Cali", "mario.bravoo@gmail.com", 3015326737L);
         /* PARA TESTEAR */hotel.addRoom(new Room(101, 2, 1, "Basic"));
         /* PARA TESTEAR */hotel.addRoom(new Room(102, 2, 1, "Medium"));
         /* PARA TESTEAR */hotel.addRoom(new Room(104, 2, 1, "Suit"));
@@ -38,16 +39,18 @@ public class Main {
                             switch (option) {
                                 case 1 -> {
                                     // Add reservation
-                                    addReservation(hotel);
+                                    addReservation();
                                 }
                                 case 2 -> {
-
+                                    //Show available rooms
+                                    showAvailableRooms();
                                 }
 
-                                case 3 ->{
-                                    
+                                case 3 -> {
+                                    //Disable reservation
+                                    disableReservation();
                                 }
-                                case 4 ->{
+                                case 4 -> {
 
                                 }
 
@@ -96,7 +99,7 @@ public class Main {
         System.out.println("(5) Go back.");
     }
 
-    private static void addReservation(Hotel hotel) {
+    private static void addReservation() {
         String guestName = keyboard.inputText("- Enter guest name: ");
         String guestEmail = keyboard.inputText("- Enter guest's email adress: ");
         long phoneNumber = keyboard.inputLong("- Enter guest's phone number: ");
@@ -104,17 +107,14 @@ public class Main {
         Guest guest = new Guest(guestName, guestEmail, phoneNumber, id);
 
         // Mostrar lista de habitaciones disponibles
-        System.out.println("- - - - - - - - AVAILABLE ROOMS - - - - - - - -");
-        for (Room room : hotel.getAvailableRooms()) {
-            System.out.println(room.toString());
-        } 
+        showAvailableRooms();
         boolean condition = false;
-        
+
         // Validar que la habitacion este disponible, si no dar un mensaje de que está
         // ocupada.
         do {
             int roomNum = keyboard.inputInt("- Enter the room number that the customer requested: ");
-    
+
             for (Room room : hotel.getAvailableRooms()) {
                 if (roomNum == room.getRoomNum()) {
                     condition = true;
@@ -126,11 +126,28 @@ public class Main {
                 Reservation reservation = new Reservation(guest, room);
                 hotel.addReservation(reservation);
                 System.out.println("- Reservation created successfully");
-            }else{
+            } else {
                 System.out.println("The room isn't available. Try again.");
             }
 
         } while (condition == false);
     }
 
+    private static void showAvailableRooms() {
+        System.out.println("- - - - - - - - AVAILABLE ROOMS - - - - - - - -");
+        for (Room room : hotel.getAvailableRooms()) {
+            System.out.println(room.toString());
+        }
+
+    }
+    private static void disableReservation(){
+        long id =keyboard.inputLong("- Enter guest's ID: ");
+        for(Reservation reservation: hotel.getReservationList()){
+            if(id == reservation.getGuest().getGuestId()){
+                hotel.disableReservation(reservation);
+            }
+        }
+    }    
+
 }
+ 

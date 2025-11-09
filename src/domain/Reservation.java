@@ -36,14 +36,13 @@ public class Reservation implements Serializable{
         this.guest = guest;
     }
 
-    public void disableReservation(){
-        this.status = false;
-        room.setAvailabilty(true);
-    }
-
     public void setRoom(Room room){
         this.room = room;    
-    } 
+    }
+    
+    public void setStatus(boolean status){
+        this.status = status;
+    }
 
     @Override
     public String toString() {

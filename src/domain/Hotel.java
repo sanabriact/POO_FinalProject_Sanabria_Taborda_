@@ -127,7 +127,8 @@ public class Hotel implements Serializable{
     }
 
     public void disableReservation(Reservation reservation){
-        reservation.disableReservation();
+        reservation.setStatus(false);
+        reservation.getRoom().setAvailabilty(true);
     }
 
     
