@@ -1,8 +1,8 @@
 package ui;
 
-import data.HotelStorage;
+import data.*;
 import domain.*;
-import utils.IOConsoleUser;
+import utils.*;
 
 public class Main {
     private static String FILE_NAME = "hotel.dat";
@@ -18,7 +18,7 @@ public class Main {
         boolean menu = true;
         int option;
 
-        // HotelStorage.load(FILE_NAME);
+        loadHotel();
         while (menu) {
             // HOTEL MENU
             showHotelMenu();
@@ -80,7 +80,7 @@ public class Main {
             }
         }
 
-        // HotelStorage.save(hotel, FILE_NAME);
+        saveHotel();
 
     }
 
@@ -162,9 +162,9 @@ public class Main {
     }
 
     private static void disableReservation() {
-        long id = keyboard.inputLong("\n- Enter guest's ID: ");
+        long id = keyboard.inputLong("\n- Enter reservation number: ");
         for (Reservation reservation : hotel.getReservationList()) {
-            if (id == reservation.getGuest().getGuestId()) {
+            if (id == reservation.getReservationNumber()) {
                 hotel.disableReservation(reservation);
             }
         }
@@ -215,5 +215,18 @@ public class Main {
             }
         }
 
+    }
+
+    private static void loadHotel() {
+        var loaded = HotelStorage.load(FILE_NAME);
+        if (loaded != null) {
+            hotel = loaded;
+            keyboard.inputText("\n- Hotel loaded successfully");
+        }
+
+    }
+
+    private static void saveHotel() {
+        HotelStorage.save(hotel, FILE_NAME);
     }
 }
