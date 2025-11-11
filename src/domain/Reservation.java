@@ -3,7 +3,7 @@ package domain;
 import java.io.Serializable;
 
 public class Reservation implements Serializable{
-     private Guest guest;
+    private Guest guest;
     private Room room;
     private int resNumber = 0;
     private boolean status;
@@ -13,6 +13,7 @@ public class Reservation implements Serializable{
         this.room = room;
         this.resNumber += 1;
         this.status = true;
+        this.room.setAvailabilty(false);
     }
 
     public Guest getGuest(){
@@ -35,14 +36,13 @@ public class Reservation implements Serializable{
         this.guest = guest;
     }
 
-    public void disableReservation(){
-        this.status = false;
-        room.setAvailabilty(true);
-    }
-
     public void setRoom(Room room){
         this.room = room;    
-    } 
+    }
+    
+    public void setStatus(boolean status){
+        this.status = status;
+    }
 
     @Override
     public String toString() {

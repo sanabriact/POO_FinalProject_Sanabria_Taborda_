@@ -20,6 +20,4 @@ public abstract class CSVEncoder <T> implements Encodable <T>{
         }
         return output;
     }
-
-    public abstract String[] getValues(T type);
 }

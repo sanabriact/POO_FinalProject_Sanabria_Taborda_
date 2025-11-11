@@ -22,6 +22,11 @@ public class IOConsoleUser implements IOUser{
     }
 
     @Override
+    public long inputLong(String message){
+        return Long.parseLong(inputText(message));
+    }
+
+    @Override
     public float inputFloat(String message){
         return Float.parseFloat(inputText(message));
     }

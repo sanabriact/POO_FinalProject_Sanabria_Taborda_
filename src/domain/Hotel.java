@@ -10,9 +10,9 @@ public class Hotel implements Serializable{
     private List<Guest> guests;
     private List<Reservation> register;
     private String hotelName = "", hotelAdress = "", hotelEmail = "";
-    private int hotelPhoneNum;
+    private long hotelPhoneNum;
 
-    public Hotel(String hotelName, String hotelAdress, String hotelEmail, int hotelPhoneNum) {
+    public Hotel(String hotelName, String hotelAdress, String hotelEmail, long hotelPhoneNum) {
         rooms = new ArrayList<>();
         reservations = new ArrayList<>();
         guests = new ArrayList<>();
@@ -37,7 +37,7 @@ public class Hotel implements Serializable{
         return this.hotelEmail;
     }
 
-    public int getHotelPhoneNum() {
+    public Long getHotelPhoneNum() {
         return this.hotelPhoneNum;
     }
 
@@ -65,7 +65,7 @@ public class Hotel implements Serializable{
         this.hotelEmail = hotelEmail;
     }
 
-    public void setHotelPhoneNum(int hotelPhoneNum) {
+    public void setHotelPhoneNum(long hotelPhoneNum) {
         this.hotelPhoneNum = hotelPhoneNum;
     }
 
@@ -91,24 +91,47 @@ public class Hotel implements Serializable{
         guests.remove(guest);
     }
 
-    public String findReservationById(int num){
+    public Reservation findReservationById(int id){
         for(Reservation r: reservations) {
-            if(num == (r.getReservationNumber())){
-                return r.toString();
+            if(id == (r.getReservationNumber())){
+                return r;
+            }
+        }
+        return null;
+    }
+
+    public String findGuestById(int id) {
+        for(Guest g: guests) {
+            if(id == (g.getGuestId())){
+                return g.toString();
             }
         }
 
         return null;
     }
 
-    public String findGuestById(int ID) {
-        for(Guest g: guests) {
-            if(ID == (g.getGuestId())){
-                return g.toString();
+    public Room findRoomById(int id){
+        for(Room room : rooms){
+            if(id == room.getRoomNum()){
+                return room;
             }
         }
-
         return null;
+    }
+
+    public List<Room> getAvailableRooms(){
+        List<Room> availableRooms = new ArrayList<>();
+        for(Room room : rooms){
+            if(room.getAvailability() == true){
+                availableRooms.add(room);
+            }
+        }
+        return availableRooms;
+    }
+
+    public void disableReservation(Reservation reservation){
+        reservation.setStatus(false);
+        reservation.getRoom().setAvailabilty(true);
     }
 
     
