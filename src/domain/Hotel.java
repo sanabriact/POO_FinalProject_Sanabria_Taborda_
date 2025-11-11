@@ -96,7 +96,7 @@ public class Hotel implements Serializable {
         return null;
     }
 
-    public Guest findGuestById(int id) {
+    public Guest findGuestById(long id) {
         for (Guest g : guests) {
             if (id == (g.getGuestId())) {
                 return g;
