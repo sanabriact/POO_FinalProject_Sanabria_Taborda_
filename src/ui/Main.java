@@ -5,10 +5,10 @@ import domain.*;
 import utils.*;
 
 public class Main {
-    private static String FILE_NAME = "hotel.dat";
+    private static final String FILE_NAME = "hotel.dat";
     private static IOConsoleUser keyboard = new IOConsoleUser();
 
-    /* PARA TESTEAR */static Hotel hotel = new Hotel("PUTICLUB", "Cali", "mario.bravoo@gmail.com", 3015326737L);
+    /* PARA TESTEAR */private static Hotel hotel = new Hotel("PUTICLUB", "Cali", "mario.bravoo@gmail.com", 3015326737L);
 
     static int reservationNumber = 0;
 
@@ -66,7 +66,7 @@ public class Main {
                                     changeReservationData();
                                 }
                                 case 6 -> {
-                                    System.out.println("\n- Leaving...\n");
+                                    keyboard.writeLine("\n- Leaving...\n");
                                 }
                                 default ->{
 
@@ -100,7 +100,7 @@ public class Main {
                         }
                         // case 3 ->{//Employees}
                         default -> {
-                            System.out.println("\n- Leaving...\n");
+                            keyboard.writeLine("\n- Leaving...\n");
                         }
                     }
                 }
@@ -109,7 +109,7 @@ public class Main {
                 }
 
                 default -> {
-                    System.out.println("\n- Invalid option. Try again.");
+                    keyboard.writeLine("\n- Invalid option. Try again.");
                 }
             }
         }
@@ -119,81 +119,81 @@ public class Main {
     }
 
     private static void showHotelMenu() {
-        System.out.println("\n- - - - - - - - HOTEL " + hotel.getHotelName().toUpperCase() + " MENU - - - - - - - -");
-        System.out.println("(1) Hotel Data.");
-        System.out.println("(2) Administrator menu.");
-        System.out.println("(3) Save and exit.\n");
+        keyboard.writeLine("\n- - - - - - - - HOTEL " + hotel.getHotelName().toUpperCase() + " MENU - - - - - - - -");
+        keyboard.writeLine("(1) Hotel Data.");
+        keyboard.writeLine("(2) Administrator menu.");
+        keyboard.writeLine("(3) Save and exit.\n");
     }
 
     private static void showAdminMenu() {
-        System.out.println("\n- - - - - - - - ADMINISTRATOR MENU - - - - - - - - ");
-        System.out.println("(1) Reservations.");
-        System.out.println("(2) Record.");
-        System.out.println("(3) Exit.\n");
-        // System.out.println("(4) Employees.");
+        keyboard.writeLine("\n- - - - - - - - ADMINISTRATOR MENU - - - - - - - - ");
+        keyboard.writeLine("(1) Reservations.");
+      keyboard.writeLine("(2) Record.");
+        keyboard.writeLine("(3) Exit.\n");
+        // keyboard.writeLine("(4) Employees.");
 
     }
 
     private static void showReservationMenu() {
-        System.out.println("\n- - - - - - - - RESERVATION MENU - - - - - - - - ");
-        System.out.println("(1) Add reservation.");
-        System.out.println("(2) Show active Reservations.");
-        System.out.println("(3) Show available rooms.");
-        System.out.println("(4) Disable reservation.");
-        System.out.println("(5) Change reservation data.");
-        System.out.println("(6) Exit.\n");
+       keyboard.writeLine("\n- - - - - - - - RESERVATION MENU - - - - - - - - ");
+        keyboard.writeLine("(1) Add reservation.");
+        keyboard.writeLine("(2) Show active Reservations.");
+       keyboard.writeLine("(3) Show available rooms.");
+        keyboard.writeLine("(4) Disable reservation.");
+        keyboard.writeLine("(5) Change reservation data.");
+       keyboard.writeLine("(6) Exit.\n");
     }
 
     private static void showRecordMenu(){
-        System.out.println("\n(1) Show reservation record.");
-        System.out.println("(2) Show guest record.");
-        System.out.println("(3) Search reservation in record.");
-        System.out.println("(4) Search guest in guest record.");
-        System.out.println("(5) Exit.");
+        keyboard.writeLine("\n(1) Show reservation record.");
+        keyboard.writeLine("(2) Show guest record.");
+       keyboard.writeLine("(3) Search reservation in record.");
+       keyboard.writeLine("(4) Search guest in guest record.");
+        keyboard.writeLine("(5) Exit.");
     }
     
     private static void showChangeReservationMenu() {
-        System.out.println("\n(1) Change guest name.");
-        System.out.println("(2) Change guest email.");
-        System.out.println("(3) Change guest phone number.");
-        System.out.println("(4) Change guest ID.");
-        System.out.println("(5) Change room.");
-        System.out.println("(6) Change reservation initial date.");
-        System.out.println("(7) Change reservation final date.");
-        System.out.println("(8) Exit.\n");
+       keyboard.writeLine("\n(1) Change guest name.");
+        keyboard.writeLine("(2) Change guest email.");
+        keyboard.writeLine("(3) Change guest phone number.");
+        keyboard.writeLine("(4) Change guest ID.");
+       keyboard.writeLine("(5) Change room.");
+        keyboard.writeLine("(6) Change reservation initial date.");
+        keyboard.writeLine("(7) Change reservation final date.");
+       keyboard.writeLine("(8) Exit.\n");
     }
     
     private static void showActiveReservations(){
-        System.out.println("\n- - - - - - - - ACTIVE RESERVATIONS - - - - - - - -");
+        keyboard.writeLine("\n- - - - - - - - ACTIVE RESERVATIONS - - - - - - - -");
         for(Reservation reservation : hotel.getReservationList()){
             if(reservation.getStatus()==true){
-                System.out.println(reservation.toString());
+                keyboard.writeLine(reservation.toString());
             }
         }
     }
 
     private static void showAvailableRooms() {
-        System.out.println("\n- - - - - - - - AVAILABLE ROOMS - - - - - - - -");
+        keyboard.writeLine("\n- - - - - - - - AVAILABLE ROOMS - - - - - - - -");
         for (Room room : hotel.getAvailableRooms()) {
-            System.out.println(room.toString());
+           keyboard.writeLine(room.toString());
         }
-        System.out.println();
+        keyboard.writeLine("");
     }
 
     private static void showReservationRecord() {
-        System.out.println("\n- - - - - - - - RESERVATION RECORD - - - - - - - -");
+        keyboard.writeLine("\n- - - - - - - - RESERVATION RECORD - - - - - - - -");
         for (Reservation reservation : hotel.getReservationList()) {
             System.out.println(reservation.toString());
         }
-        System.out.println();
+       keyboard.writeLine("");
     }
 
     private static void showGuestRecord() {
-        System.out.println("\n- - - - - - - - GUEST RECORD - - - - - - - -");
+        keyboard.writeLine("\n- - - - - - - - GUEST RECORD - - - - - - - -");
         for (Guest guest : hotel.getGuestList()) {
-            System.out.println(guest.toString());
+            keyboard.writeLine(guest.toString());
         }
-        System.out.println();
+        keyboard.writeLine("");
     }
 
     private static void addReservation() {
@@ -214,10 +214,10 @@ public class Main {
             
             if (room != null && room.getAvailability()) {
                 hotel.addReservation(new Reservation(guest, room, initialDate, finalDate));
-                System.out.println("\n- Reservation created successfully");
+                keyboard.writeLine("\n- Reservation created successfully");
                 condition = true;
             } else {
-                System.out.println("\n- The room isn't available or doesn't exist. Try again.\n");
+               keyboard.writeLine("\n- The room isn't available or doesn't exist. Try again.\n");
             }
         } while (!condition);
     }
@@ -236,7 +236,7 @@ public class Main {
         int reservationNumber = keyboard
                 .inputInt("\n- Enter the reservation number for which you are going to change the data: ");
         if (reservationNumber > 0) {
-            System.out.println("\n- Reservation found.");
+           keyboard.writeLine("\n- Reservation found.");
             showChangeReservationMenu();
             int option = keyboard.inputInt("\n- Enter an option: ");
             switch (option) {
@@ -264,9 +264,9 @@ public class Main {
                         if (room != null && room.getAvailability()) {
                             hotel.findReservationById(reservationNumber).setRoom(room);
                             condition = true;
-                            System.out.println("\n- Room changed successfully.");
+                           keyboard.writeLine("\n- Room changed successfully.");
                         } else {
-                            System.out.println("\n- The room isn't available or doesn't exist. Try again.\n");
+                            keyboard.writeLine("\n- The room isn't available or doesn't exist. Try again.\n");
                         }
                     } while (!condition);
                 }
@@ -279,14 +279,14 @@ public class Main {
                     hotel.findReservationById(reservationNumber).setFinalDate(finalDate);
                 }
                 case 8 -> {
-                    System.out.println("\n- Leaving... ");
+                    keyboard.writeLine("\n- Leaving... ");
                 }
                 default -> {
-                    System.out.println("\n- Invalid option. Try again.");
+                    keyboard.writeLine("\n- Invalid option. Try again.");
                 }
             }
         } else {
-            System.out.println("\n- The reservation doesn't exist, please try again");
+           keyboard.writeLine("\n- The reservation doesn't exist, please try again");
         }
 
     }
@@ -295,10 +295,10 @@ public class Main {
         int reservationNumber = keyboard.inputInt("\n- Enter the reservation number that you want search: ");
         Reservation reservation = hotel.findReservationById(reservationNumber);
         if(reservation!= null){
-            System.out.println("\n- Reservation found successfully.");
+            keyboard.writeLine("\n- Reservation found successfully.");
             reservation.toString();
         }else{
-            System.out.println("\n- The reservation doesn't exist, please try again.");
+            keyboard.writeLine("\n- The reservation doesn't exist, please try again.");
         }
     }
 
@@ -306,10 +306,10 @@ public class Main {
         long guestId = keyboard.inputLong("\n- Enter the guest ID that you want search: ");
         Guest guest = hotel.findGuestById(guestId);
         if(guest!= null){
-            System.out.println("\n- Guest found successfully.");
+           keyboard.writeLine("\n- Guest found successfully.");
             guest.toString();
         }else{
-            System.out.println("\n- The guest doesn't exist. Try again.");
+            keyboard.writeLine("\n- The guest doesn't exist. Try again.");
         }
     }
 
