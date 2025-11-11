@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hotel implements Serializable{
+public class Hotel implements Serializable {
     private List<Room> rooms;
     private List<Reservation> reservations;
     private List<Guest> guests;
@@ -47,7 +47,7 @@ public class Hotel implements Serializable{
         return reservations;
     }
 
-    public List<Guest> getGuestsList() {
+    public List<Guest> getGuestList() {
         return guests;
     }
 
@@ -87,48 +87,46 @@ public class Hotel implements Serializable{
         guests.remove(guest);
     }
 
-    public Reservation findReservationById(int id){
-        for(Reservation r: reservations) {
-            if(id == (r.getReservationNumber())){
+    public Reservation findReservationById(int id) {
+        for (Reservation r : reservations) {
+            if (id == (r.getReservationNumber())) {
                 return r;
             }
         }
         return null;
     }
 
-    public String findGuestById(int id) {
-        for(Guest g: guests) {
-            if(id == (g.getGuestId())){
-                return g.toString();
+    public Guest findGuestById(int id) {
+        for (Guest g : guests) {
+            if (id == (g.getGuestId())) {
+                return g;
             }
         }
-
         return null;
     }
 
-    public Room findRoomById(int id){
-        for(Room room : rooms){
-            if(id == room.getRoomNum()){
+    public Room findRoomById(int id) {
+        for (Room room : rooms) {
+            if (id == room.getRoomNum()) {
                 return room;
             }
         }
         return null;
     }
 
-    public List<Room> getAvailableRooms(){
+    public List<Room> getAvailableRooms() {
         List<Room> availableRooms = new ArrayList<>();
-        for(Room room : rooms){
-            if(room.getAvailability() == true){
+        for (Room room : rooms) {
+            if (room.getAvailability() == true) {
                 availableRooms.add(room);
             }
         }
         return availableRooms;
     }
 
-    public void disableReservation(Reservation reservation){
+    public void disableReservation(Reservation reservation) {
         reservation.setStatus(false);
         reservation.getRoom().setAvailabilty(true);
     }
 
-    
 }
