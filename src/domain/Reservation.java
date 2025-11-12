@@ -2,51 +2,73 @@ package domain;
 
 import java.io.Serializable;
 
-public class Reservation implements Serializable{
+public class Reservation implements Serializable {
     private Guest guest;
     private Room room;
+    private static int nextNumber = 0;
     private int resNumber = 0;
     private boolean status;
+    private String initialDate;
+    private String finalDate;
 
-    public Reservation(Guest guest ,Room room ){
+    public Reservation(Guest guest, Room room, String initialDate, String finalDate) {
         this.guest = guest;
         this.room = room;
-        this.resNumber += 1;
+        this.initialDate = initialDate;
+        this.finalDate = finalDate;
+        this.resNumber = nextNumber++;
         this.status = true;
         this.room.setAvailabilty(false);
     }
 
-    public Guest getGuest(){
+    public Guest getGuest() {
         return guest;
     }
 
-    public Room getRoom(){
+    public Room getRoom() {
         return room;
-    } 
+    }
 
-    public boolean getStatus(){
+    public boolean getStatus() {
         return status;
     }
 
-    public int getReservationNumber(){
+    public int getReservationNumber() {
         return resNumber;
     }
 
-    public void setGuest(Guest guest){
+    public String getInitialDate() {
+        return initialDate;
+    }
+
+    public String getFinalDate() {
+        return finalDate;
+    }
+
+    public void setGuest(Guest guest) {
         this.guest = guest;
     }
 
-    public void setRoom(Room room){
-        this.room = room;    
+    public void setRoom(Room room) {
+        this.room = room;
     }
-    
-    public void setStatus(boolean status){
+
+    public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public void setInitialDate(String initialDate) {
+        this.initialDate = initialDate;
+    }
+
+    public void setFinalDate(String finalDate) {
+        this.finalDate = finalDate;
     }
 
     @Override
     public String toString() {
 
-        return "Reservation: {Number: " + resNumber + ", status: " + status + "}";
+        return "Reservation: {number: " + resNumber + ", status: " + status + ", initial date: " + initialDate
+                + ", final date: " + finalDate + "}";
     }
 }
