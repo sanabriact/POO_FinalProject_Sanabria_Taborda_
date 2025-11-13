@@ -133,4 +133,8 @@ public class Hotel implements Serializable {
         reservation.getRoom().setAvailabilty(true);
     }
 
+    public String toString(){
+        return "Hotel info\n-Name: " + this.hotelName + "\n-Adress: " + this.hotelAdress + "\n-Email: " + hotelEmail +"\n-Number: " + hotelPhoneNum;
+    }
+
 }
