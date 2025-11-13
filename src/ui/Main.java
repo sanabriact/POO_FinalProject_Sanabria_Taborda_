@@ -22,6 +22,7 @@ public class Main {
         /* PARA TESTEAR */hotel.addRoom(new Room(202, 2, 1, "Medium"));
         /* PARA TESTEAR */hotel.addRoom(new Room(203, 2, 1, "Medium"));
         /* PARA TESTEAR */hotel.addRoom(new Room(204, 2, 1, "Medium"));
+        /* PARA TESTEAR */saveHotel();
 
         boolean menu = true;
         int option;
@@ -37,35 +38,19 @@ public class Main {
                     option = keyboard.inputInt("\n- Enter a option: ");
                     switch (option) {
                         case 1 -> {
-                            hotel = new Hotel(keyboard.inputText("Hotel name: "),
-                                    keyboard.inputText("\nHotel adress: "), keyboard.inputText("\nHotel email: "),
-                                    keyboard.inputLong("\nHotel number: "));
-                            saveHotel();
+                            createHotel();
                         }
 
                         case 2 -> {
-                            hotel.addRoom(new Room(keyboard.inputInt("Room number: "), keyboard.inputInt("\nCuantity of beds: "), keyboard.inputInt("\nCuantity of baths: "), keyboard.inputText("\nRoom type: ")));
-                            keyboard.writeLine("Room added succesfully.\n");
+                            addRoom();
                         }
 
                         case 3 -> {
-                            option = keyboard.inputInt("What do you want to change?\n");
-                            changeHotelInfoMenu();
+                            changeInfo();
+                        }
 
-                            switch(option){
-                                case 1 -> {
-                                    option = keyboard.inputInt("What room info do you want to change?");
-                                    changeRoomInfoMenu();
-
-                                    switch(option){
-                                        case 1 -> {
-                                            
-                                        }
-                                    }
-
-                                }
-                            }
-
+                        case 4 -> {
+                            keyboard.writeLine("\n Leaving...\n");
                         }
                     }
 
@@ -154,30 +139,170 @@ public class Main {
     }
 
     private static void showHotelMenu() {
-        keyboard.writeLine("\n- - - - - - - - HOTEL " + hotel.getHotelName().toUpperCase() + " MENU - - - - - - - -");
+        keyboard.writeLine("\n- - - - - - - - - - - - - - - - HOTEL " + hotel.getHotelName().toUpperCase()
+                + " MENU - - - - - - - - - - - - - - - -");
         keyboard.writeLine("(1) Hotel Data.");
         keyboard.writeLine("(2) Administrator menu.");
         keyboard.writeLine("(3) Save and exit.\n");
     }
 
     private static void showHotelDataMenu() {
-        keyboard.writeLine("\n- - - - - - - HOTEL DATA MENU - - - - - - -");
+        keyboard.writeLine("\n- - - - - - - - - - - - - - - - - - - - - - -");
         keyboard.writeLine("(1) Create Hotel");
         keyboard.writeLine("(2) Add room");
         keyboard.writeLine("(3) Change info");
         keyboard.writeLine("(4) Go back.\n");
     }
 
-    private static void changeHotelInfoMenu(){
+    private static void createHotel() {
+        keyboard.writeLine("\n- - - - - - - - - - - - - - - - - - - - - - -");
+        hotel = new Hotel(keyboard.inputText("Hotel name: "),
+                keyboard.inputText("\nHotel adress: "), keyboard.inputText("\nHotel email: "),
+                keyboard.inputLong("\nHotel number: "));
+        saveHotel();
+    }
+
+    private static void addRoom() {
+        hotel.addRoom(new Room(keyboard.inputInt("Room number: "),
+                keyboard.inputInt("\nCuantity of beds: "),
+                keyboard.inputInt("\nCuantity of baths: "), keyboard.inputText("\nRoom type: ")));
+        keyboard.writeLine("Room added succesfully.\n");
+    }
+
+    private static void changeHotelInfoMenu() {
         keyboard.writeLine("(1) Change hotel info");
         keyboard.writeLine("(2) Change room info");
     }
 
-    private static void changeRoomInfoMenu(){
-        keyboard.writeLine("(1) Change room number");
-        keyboard.writeLine("(2) Change cuantity of room beds");
-        keyboard.writeLine("(3) Change cuantity of room baths");
-        keyboard.writeLine("(4) Change room type");
+    private static void showRoomList() {
+        keyboard.writeLine("\n- - - - - - - - - - - - - - - - - - - - - - -");
+        keyboard.writeLine("\n                 ROOM LIST\n");
+        for (Room room : hotel.getRoomList()) {
+            keyboard.writeLine(room.toString());
+        }
+
+        keyboard.writeLine("");
+    }
+
+    private static void changeInfo() {
+        keyboard.writeLine("\n- - - - - - - - - - - - - - - - - - - - - - -");
+        changeHotelInfoMenu();
+        int option = keyboard.inputInt("What do you want to change?\n");
+
+        switch (option) {
+            case 1 -> {
+                changeHotelInfo(option);
+            }
+            case 2 -> {
+                changeRoomInfo(option);
+            }
+        }
+
+    }
+
+    private static void changeHotelInfo(int option) {
+        keyboard.writeLine("\n- - - - - - - - - - - - - - - - - -");
+        hotelInfo();
+        boolean ds = true;
+
+        option = keyboard.inputInt(
+                "\nWhat do you want to change?\n(1) Name\n(2) Adress\n(3) Email\n(4) Telephone number\n(5) Leave\n-Enter an option: ");
+
+        switch (option) {
+            case 1 -> {
+                hotel.setHotelName(keyboard.inputText("Enter new hotel name: "));
+            }
+
+            case 2 -> {
+                hotel.setHotelAdress(keyboard.inputText("Enter new hotel adress: "));
+            }
+
+            case 3 -> {
+                hotel.setHotelEmail(keyboard.inputText("Enter new hotel email: "));
+            }
+
+            case 4 -> {
+                hotel.setHotelPhoneNum(keyboard.inputLong("Enter new hotel phone number: "));
+            }
+
+            case 5 -> {
+                keyboard.writeLine("\n Leaving... \n");
+                ds = false;
+            }
+
+            default -> {
+                keyboard.writeLine("An error ocurred selecting the option.");
+            }
+        }
+
+        if(ds){
+            keyboard.writeLine("\nInfo changed succesfully.");
+        } else{
+            keyboard.writeLine("No info was changed.");
+        }
+    }
+
+    private static void hotelInfo() {
+        keyboard.writeLine(hotel.toString());
+    }
+
+    private static void changeRoomInfo(int option) {
+        showRoomList();
+        option = keyboard.inputInt("Enter room number for changing its info: ");
+        boolean ds = true;
+
+        for (Room room : hotel.getRoomList()) {
+            if (option == room.getRoomNum()) {
+                keyboard.writeLine("- - - - - - - - - ");
+                keyboard.writeLine("What do you want to change?\n");
+                RoomInfoMenu();
+                option = keyboard.inputInt("\n - Enter an option: ");
+
+                switch (option) {
+                    case 1 -> {
+                        room.setRoomNum(keyboard.inputInt("Enter new room number for " + room.getRoomNum()));
+                    }
+
+                    case 2 -> {
+                        room.setRoomBeds(
+                                keyboard.inputInt("Enter new cuantity of beds for room " + room.getRoomBeds()));
+                    }
+
+                    case 3 -> {
+                        room.setRoomBaths(keyboard
+                                .inputInt("Enter new cuantity of beds for room " + room.getRoomBaths()));
+                    }
+
+                    case 4 -> {
+                        room.setRoomType(keyboard.inputText("Enter new type for room " + room.getRoomType()));
+                    }
+
+                    case 5 -> {
+                        keyboard.writeLine("Leaving...");
+                        ds = false;
+                    }
+
+                    default -> {
+                        keyboard.writeLine("An error ocurred while trying to change info");
+                    }
+                }
+            }
+        }
+
+        if (ds) {
+            keyboard.writeLine("Info changed succesfully.");
+        } else {
+            keyboard.writeLine("No info was changed.");
+        }
+
+    }
+
+    private static void RoomInfoMenu() {
+        keyboard.writeLine("(1) Room number");
+        keyboard.writeLine("(2) Cuantity of room beds");
+        keyboard.writeLine("(3) Cuantity of room baths");
+        keyboard.writeLine("(4) Room type");
+        keyboard.writeLine("(5) Exit");
     }
 
     private static void showAdminMenu() {
@@ -238,7 +363,7 @@ public class Main {
     private static void showReservationRecord() {
         keyboard.writeLine("\n- - - - - - - - RESERVATION RECORD - - - - - - - -");
         for (Reservation reservation : hotel.getReservationList()) {
-            System.out.println(reservation.toString());
+            keyboard.writeLine(reservation.toString());
         }
         keyboard.writeLine("");
     }
