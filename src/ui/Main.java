@@ -8,8 +8,8 @@ public class Main {
     private static final String FILE_NAME = "hotel.dat";
     private static IOConsoleUser keyboard = new IOConsoleUser();
 
-    /* PARA TESTEAR */private static Hotel hotel = new Hotel("PUTICLUB", "Cali", "mario.bravoo@gmail.com", 3015326737L);
-
+    /* PARA TESTEAR */
+    private static Hotel hotel = new Hotel("PUTICLUB", "Manizales", "mario.bravoo@gmail.com", 3015326737L);
     static int reservationNumber = 0;
 
     public static void main(String[] args) {
@@ -38,7 +38,7 @@ public class Main {
                     option = keyboard.inputInt("\n- Enter a option: ");
                     switch (option) {
                         case 1 -> {
-                            createHotel();
+                            configHotel();
                         }
 
                         case 2 -> {
@@ -148,13 +148,13 @@ public class Main {
 
     private static void showHotelDataMenu() {
         keyboard.writeLine("\n- - - - - - - - - - - - - - - - - - - - - - -");
-        keyboard.writeLine("(1) Create Hotel");
+        keyboard.writeLine("(1) Configure Hotel");
         keyboard.writeLine("(2) Add room");
         keyboard.writeLine("(3) Change info");
         keyboard.writeLine("(4) Go back.\n");
     }
 
-    private static void createHotel() {
+    private static void configHotel() {
         keyboard.writeLine("\n- - - - - - - - - - - - - - - - - - - - - - -");
         hotel = new Hotel(keyboard.inputText("Hotel name: "),
                 keyboard.inputText("\nHotel adress: "), keyboard.inputText("\nHotel email: "),
