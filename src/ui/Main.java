@@ -422,11 +422,11 @@ public class Main {
             switch (option) {
                 case 1 -> {
                     String guestName = keyboard.inputText("\n- Enter a new guest name: ");
-                    hotel.findReservationById(reservationNumber).getGuest().setGuestName(guestName);
+                    hotel.findReservationById(reservationNumber).getGuest().setName(guestName);
                 }
                 case 2 -> {
                     String guestEmail = keyboard.inputText("\n- Enter a new guest email adress: ");
-                    hotel.findReservationById(reservationNumber).getGuest().setGuestEmail(guestEmail);
+                    hotel.findReservationById(reservationNumber).getGuest().setEmail(guestEmail);
                 }
                 case 3 -> {
                     long phoneNumber = keyboard.inputLong("\n- Enter a new guest phone number: ");
@@ -434,7 +434,7 @@ public class Main {
                 }
                 case 4 -> {
                     long id = keyboard.inputLong("\n- Enter a new guest ID: ");
-                    hotel.findReservationById(reservationNumber).getGuest().setGuestId(id);
+                    hotel.findReservationById(reservationNumber).getGuest().setId(id);
                 }
                 case 5 -> {
                     boolean condition = false;
