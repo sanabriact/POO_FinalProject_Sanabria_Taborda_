@@ -487,7 +487,7 @@ public class Main {
         Guest guest = hotel.findGuestById(guestId);
         if (guest != null) {
             keyboard.writeLine("\n- Guest found successfully.");
-            guest.toString();
+            keyboard.writeLine(guest.toString());
         } else {
             keyboard.writeLine("\n- The guest doesn't exist. Try again.");
         }
