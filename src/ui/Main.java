@@ -8,8 +8,8 @@ public class Main {
     private static final String FILE_NAME = "hotel.dat";
     private static IOConsoleUser keyboard = new IOConsoleUser();
 
-    /* PARA TESTEAR */private static Hotel hotel = new Hotel("PUTICLUB", "Cali", "mario.bravoo@gmail.com", 3015326737L);
-
+    /* PARA TESTEAR */
+    private static Hotel hotel = new Hotel("PUTICLUB", "Manizales", "mario.bravoo@gmail.com", 3015326737L);
     static int reservationNumber = 0;
 
     public static void main(String[] args) {
@@ -38,7 +38,7 @@ public class Main {
                     option = keyboard.inputInt("\n- Enter a option: ");
                     switch (option) {
                         case 1 -> {
-                            createHotel();
+                            configHotel();
                         }
 
                         case 2 -> {
@@ -148,16 +148,62 @@ public class Main {
 
     private static void showHotelDataMenu() {
         keyboard.writeLine("\n- - - - - - - - - - - - - - - - - - - - - - -");
-        keyboard.writeLine("(1) Create Hotel");
+        keyboard.writeLine("(1) Configure Hotel");
         keyboard.writeLine("(2) Add room");
         keyboard.writeLine("(3) Change info");
         keyboard.writeLine("(4) Go back.\n");
     }
-
-    private static void createHotel() {
+    
+        private static void RoomInfoMenu() {
+            keyboard.writeLine("(1) Room number");
+            keyboard.writeLine("(2) Cuantity of room beds");
+            keyboard.writeLine("(3) Cuantity of room baths");
+            keyboard.writeLine("(4) Room type");
+            keyboard.writeLine("(5) Exit");
+        }
+    
+        private static void showAdminMenu() {
+            keyboard.writeLine("\n- - - - - - - - ADMINISTRATOR MENU - - - - - - - - ");
+            keyboard.writeLine("(1) Reservations.");
+            keyboard.writeLine("(2) Record.");
+            keyboard.writeLine("(3) Exit.\n");
+            // keyboard.writeLine("(4) Employees.");
+    
+        }
+    
+        private static void showReservationMenu() {
+            keyboard.writeLine("\n- - - - - - - - RESERVATION MENU - - - - - - - - ");
+            keyboard.writeLine("(1) Add reservation.");
+            keyboard.writeLine("(2) Show active Reservations.");
+            keyboard.writeLine("(3) Show available rooms.");
+            keyboard.writeLine("(4) Disable reservation.");
+            keyboard.writeLine("(5) Change reservation data.");
+            keyboard.writeLine("(6) Exit.\n");
+        }
+    
+        private static void showRecordMenu() {
+            keyboard.writeLine("\n(1) Show reservation record.");
+            keyboard.writeLine("(2) Show guest record.");
+            keyboard.writeLine("(3) Search reservation in record.");
+            keyboard.writeLine("(4) Search guest in guest record.");
+            keyboard.writeLine("(5) Exit.");
+        }
+    
+        private static void showChangeReservationMenu() {
+            keyboard.writeLine("\n(1) Change guest name.");
+            keyboard.writeLine("(2) Change guest email.");
+            keyboard.writeLine("(3) Change guest phone number.");
+            keyboard.writeLine("(4) Change guest ID.");
+            keyboard.writeLine("(5) Change room.");
+            keyboard.writeLine("(6) Change reservation initial date.");
+            keyboard.writeLine("(7) Change reservation final date.");
+            keyboard.writeLine("(8) Exit.\n");
+        }
+    
+    private static void configHotel() {
         keyboard.writeLine("\n- - - - - - - - - - - - - - - - - - - - - - -");
         hotel = new Hotel(keyboard.inputText("Hotel name: "),
-                keyboard.inputText("\nHotel adress: "), keyboard.inputText("\nHotel email: "),
+        keyboard.inputText("\nHotel adress: "), keyboard.inputText("\nHotel email: "),
                 keyboard.inputLong("\nHotel number: "));
         saveHotel();
     }
@@ -295,52 +341,6 @@ public class Main {
             keyboard.writeLine("No info was changed.");
         }
 
-    }
-
-    private static void RoomInfoMenu() {
-        keyboard.writeLine("(1) Room number");
-        keyboard.writeLine("(2) Cuantity of room beds");
-        keyboard.writeLine("(3) Cuantity of room baths");
-        keyboard.writeLine("(4) Room type");
-        keyboard.writeLine("(5) Exit");
-    }
-
-    private static void showAdminMenu() {
-        keyboard.writeLine("\n- - - - - - - - ADMINISTRATOR MENU - - - - - - - - ");
-        keyboard.writeLine("(1) Reservations.");
-        keyboard.writeLine("(2) Record.");
-        keyboard.writeLine("(3) Exit.\n");
-        // keyboard.writeLine("(4) Employees.");
-
-    }
-
-    private static void showReservationMenu() {
-        keyboard.writeLine("\n- - - - - - - - RESERVATION MENU - - - - - - - - ");
-        keyboard.writeLine("(1) Add reservation.");
-        keyboard.writeLine("(2) Show active Reservations.");
-        keyboard.writeLine("(3) Show available rooms.");
-        keyboard.writeLine("(4) Disable reservation.");
-        keyboard.writeLine("(5) Change reservation data.");
-        keyboard.writeLine("(6) Exit.\n");
-    }
-
-    private static void showRecordMenu() {
-        keyboard.writeLine("\n(1) Show reservation record.");
-        keyboard.writeLine("(2) Show guest record.");
-        keyboard.writeLine("(3) Search reservation in record.");
-        keyboard.writeLine("(4) Search guest in guest record.");
-        keyboard.writeLine("(5) Exit.");
-    }
-
-    private static void showChangeReservationMenu() {
-        keyboard.writeLine("\n(1) Change guest name.");
-        keyboard.writeLine("(2) Change guest email.");
-        keyboard.writeLine("(3) Change guest phone number.");
-        keyboard.writeLine("(4) Change guest ID.");
-        keyboard.writeLine("(5) Change room.");
-        keyboard.writeLine("(6) Change reservation initial date.");
-        keyboard.writeLine("(7) Change reservation final date.");
-        keyboard.writeLine("(8) Exit.\n");
     }
 
     private static void showActiveReservations() {
@@ -487,7 +487,7 @@ public class Main {
         Guest guest = hotel.findGuestById(guestId);
         if (guest != null) {
             keyboard.writeLine("\n- Guest found successfully.");
-            guest.toString();
+            keyboard.writeLine(guest.toString());
         } else {
             keyboard.writeLine("\n- The guest doesn't exist. Try again.");
         }
