@@ -15,23 +15,23 @@ public class Guest implements Serializable {
         this.id = id;
     }
 
-    public String getGuestName() {
+    public String getName() {
         return name;
     }
 
-    public String getGuestEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public long getGuestPhoneNum() {
+    public long getPhoneNum() {
         return phoneNumber;
     }
 
-    public long getGuestId() {
+    public long getId() {
         return id;
     }
 
-    public void setGuestName(String name) {
+    public void setName(String name) {
         if (name.isEmpty()) {
             this.name = null;
         } else {
@@ -39,7 +39,7 @@ public class Guest implements Serializable {
         }
     }
 
-    public void setGuestEmail(String email) {
+    public void setEmail(String email) {
         if (email.isEmpty()) {
             this.email = null;
         } else {
@@ -55,7 +55,7 @@ public class Guest implements Serializable {
         }
     }
 
-    public void setGuestId(long id) {
+    public void setId(long id) {
         if (id > 0) {
             this.id = id;
         } else {

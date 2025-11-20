@@ -102,7 +102,7 @@ public class Hotel implements Serializable {
 
     public Guest findGuestById(long id) {
         for (Guest g : guests) {
-            if (id == (g.getGuestId())) {
+            if (id == (g.getId())) {
                 return g;
             }
         }
