@@ -17,14 +17,12 @@ public class Hotel implements Serializable {
         rooms = new ArrayList<>();
         reservations = new ArrayList<>();
         guests = new ArrayList<>();
-        register = new ArrayList<>();
         employees = new ArrayList<>();
 
         this.hotelName = hotelName;
         this.hotelAdress = hotelAdress;
         this.hotelPhoneNum = hotelPhoneNum;
         this.hotelEmail = hotelEmail;
-
     }
 
     public String getHotelName() {
@@ -87,8 +85,6 @@ public class Hotel implements Serializable {
         reservations.add(reservation);
         Guest guest = reservation.getGuest();
         guests.add(guest);
-
-        register.add(reservation);
     }
 
     public void deleteRoom(Room room) {
