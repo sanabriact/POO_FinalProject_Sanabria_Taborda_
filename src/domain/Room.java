@@ -12,7 +12,7 @@ public class Room implements Serializable {
         this.beds = beds;
         this.baths = baths;
         this.available = true;
-        if (roomType.equals("Basic") || roomType.equals("Medium") || roomType.equals("Suit")) {
+        if (roomType.toLowerCase().equals("basic") || roomType.toLowerCase().equals("medium") || roomType.toLowerCase().equals("suit")) {
             this.roomType = roomType;
         }else{
             this.roomType = null;
