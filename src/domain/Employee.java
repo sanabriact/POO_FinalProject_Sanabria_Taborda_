@@ -4,7 +4,7 @@ public class Employee extends Guest {
     // static int because all Employees share this attribute For each new reservation "employeeNumber" increases by one
     private static int nextNumber = 0;
     private double salary;
-    private int employeeNumber;
+    private int employeeNumber = 0;
     private String position;
     private boolean active;
 
