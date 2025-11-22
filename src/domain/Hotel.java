@@ -9,6 +9,7 @@ public class Hotel implements Serializable {
     private List<Reservation> reservations;
     private List<Guest> guests;
     private List<Reservation> register;
+    private List<Employee> employees;
     private String hotelName = "", hotelAdress = "", hotelEmail = "";
     private long hotelPhoneNum;
 
@@ -17,6 +18,7 @@ public class Hotel implements Serializable {
         reservations = new ArrayList<>();
         guests = new ArrayList<>();
         register = new ArrayList<>();
+        employees = new ArrayList<>();
 
         this.hotelName = hotelName;
         this.hotelAdress = hotelAdress;
@@ -53,6 +55,10 @@ public class Hotel implements Serializable {
         return guests;
     }
 
+    public List<Employee> getEmployeeList() {
+        return employees;
+    }
+
     public void setHotelName(String hotelName) {
         this.hotelName = hotelName;
     }
@@ -73,6 +79,10 @@ public class Hotel implements Serializable {
         rooms.add(room);
     }
 
+    public void addEmployee(Employee employee) {
+        employees.add(employee);
+    }
+
     public void addReservation(Reservation reservation) {
         reservations.add(reservation);
         Guest guest = reservation.getGuest();
@@ -91,19 +101,19 @@ public class Hotel implements Serializable {
         guests.remove(guest);
     }
 
-    public Reservation findReservationById(int id) {
-        for (Reservation r : reservations) {
-            if (id == (r.getReservationNumber())) {
-                return r;
+    public Reservation findReservationByNumber(long resNumber) {
+        for (Reservation reservation : reservations) {
+            if (resNumber == (reservation.getReservationNumber())) {
+                return reservation;
             }
         }
         return null;
     }
 
     public Guest findGuestById(long id) {
-        for (Guest g : guests) {
-            if (id == (g.getId())) {
-                return g;
+        for (Guest guest : guests) {
+            if (id == (guest.getId())) {
+                return guest;
             }
         }
         return null;
@@ -113,6 +123,15 @@ public class Hotel implements Serializable {
         for (Room room : rooms) {
             if (id == room.getRoomNum()) {
                 return room;
+            }
+        }
+        return null;
+    }
+
+    public Employee findEmployeeByNumber(long employeeNumber){
+        for(Employee employee : employees){
+            if(employeeNumber == employee.getEmployeeNumber()){
+                return employee;
             }
         }
         return null;
@@ -133,8 +152,9 @@ public class Hotel implements Serializable {
         reservation.getRoom().setAvailabilty(true);
     }
 
-    public String toString(){
-        return "Hotel info\n-Name: " + this.hotelName + "\n-Adress: " + this.hotelAdress + "\n-Email: " + hotelEmail +"\n-Number: " + hotelPhoneNum;
+    public String toString() {
+        return "Hotel info\n-Name: " + this.hotelName + "\n-Adress: " + this.hotelAdress + "\n-Email: " + hotelEmail
+                + "\n-Number: " + hotelPhoneNum;
     }
 
 }
