@@ -3,21 +3,42 @@ package utils;
 import java.util.List;
 
 public abstract class CSVEncoder <T> implements Encodable <T>{
-    public String encodeRecord(T type){
+    
+    private String encodeFieldNames(){
+        String[] fieldNames = getFieldNames();
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(fieldNames[0]);
+        for (int k = 1; k < fieldNames.length; k+=1){
+            sb.append(",");
+            sb.append(fieldNames[k]);
+        }
+
+        return sb.toString();
+    }
+
+    @Override
+    public String encodeRecord(T type) {
         String[] values = getValues(type);
-        String output = values[0];
-        for(int k = 1; k < values.length; k++){
-            output += ","+values[k];
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(values[0]);
+        for (int k = 1; k < values.length; k +=1){
+            sb.append("," + values[k]);
         }
         
-        return output;
+        return sb.toString();     
     }
+
     @Override
-    public String getAll(List<T> list){
-        String output = "";
+    public String encode(List<T> list){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(encodeFieldNames() + "\n");
         for (T record : list) {
-            output += encodeRecord(record) + "\n";
+            sb.append(encodeRecord(record) + "\n");
         }
-        return output;
-    }
+
+        return sb.toString();        
+    }     
 }
