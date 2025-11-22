@@ -3,9 +3,10 @@ package domain;
 import java.io.Serializable;
 
 public class Reservation implements Serializable {
+    //static int because all reservations share this attribute. For each new reservation "resNumber" increases by one
+    private static int nextNumber = 0;
     private Guest guest;
     private Room room;
-    private static int nextNumber = 0;
     private int resNumber = 0;
     private boolean status;
     private String initialDate;
