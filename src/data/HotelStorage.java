@@ -1,6 +1,9 @@
 package data;
 import java.io.*;
 import domain.*;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class HotelStorage {
     
@@ -19,6 +22,15 @@ public class HotelStorage {
         }catch(IOException | ClassNotFoundException exception){
             System.err.println("an error occurred while loading hotel data.");
             return null;
+        }
+    }
+
+    public static void save(String fileName, String content) {
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.write(content);
+            System.out.println("File saved successfully: " + fileName);
+        } catch (IOException e) {
+            System.out.println("Error saving file: " + e.getMessage());
         }
     }
 }
