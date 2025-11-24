@@ -8,21 +8,15 @@ public class Hotel implements Serializable {
     private List<Room> rooms;
     private List<Reservation> reservations;
     private List<Guest> guests;
-    private List<Reservation> register;
     private List<Employee> employees;
     private String hotelName = "", hotelAdress = "", hotelEmail = "";
     private long hotelPhoneNum;
 
-    public Hotel(String hotelName, String hotelAdress, String hotelEmail, long hotelPhoneNum) {
+    public Hotel() {
         rooms = new ArrayList<>();
         reservations = new ArrayList<>();
         guests = new ArrayList<>();
         employees = new ArrayList<>();
-
-        this.hotelName = hotelName;
-        this.hotelAdress = hotelAdress;
-        this.hotelPhoneNum = hotelPhoneNum;
-        this.hotelEmail = hotelEmail;
     }
 
     public String getHotelName() {
