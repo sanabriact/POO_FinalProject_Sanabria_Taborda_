@@ -9,7 +9,7 @@ public class Main {
     private static IOConsoleUser keyboard = new IOConsoleUser();
 
     /* PARA TESTEAR */
-    private static Hotel hotel = new Hotel("FORTUNE", "Manizales", "mario.bravoo@gmail.com", 3015326737L);
+    private static Hotel hotel = new Hotel();
     static int reservationNumber = 0;
 
     public static void main(String[] args) {
@@ -65,13 +65,13 @@ public class Main {
         while (menu) {
             // HOTEL MENU
             showHotelMenu();
-            option = inputOption("\n- Enter an option: ");
+            option = keyboard.inputInt("\n- Enter an option: ");
             switch (option) {
                 case 1 -> {
                     boolean condition = true;
                     while (condition) {
                         showHotelDataMenu();
-                        option = inputOption("\n- Enter an option: ");
+                        option = keyboard.inputInt("\n- Enter a option: ");
                         switch (option) {
                             case 1 -> {
                                 configHotel();
@@ -102,14 +102,14 @@ public class Main {
                     boolean condition2 = true;
                     while (condition2) {
                         showAdminMenu();
-                        option = inputOption("\n- Enter an option: ");
+                        option = keyboard.inputInt("\n- Enter an option: ");
                         switch (option) {
                             case 1 -> {
                                 // Reservations
                                 boolean condition3 = true;
                                 while (condition3) {
                                     showReservationMenu();
-                                    option = inputOption("\n- Enter an option: ");
+                                    option = keyboard.inputInt("\n- Enter an option: ");
                                     switch (option) {
                                         case 1 -> {
                                             // Add reservation
@@ -146,7 +146,7 @@ public class Main {
                                 boolean condition4 = true;
                                 while (condition4) {
                                     showRecordMenu();
-                                    option = inputOption("\n- Enter an option: ");
+                                    option = keyboard.inputInt("\n- Enter an option: ");
                                     switch (option) {
                                         case 1 -> {
                                             showReservationRecord();
@@ -162,10 +162,10 @@ public class Main {
                                         }
                                         case 5 -> {
                                             keyboard.writeLine("\n- Leaving...\n");
+                                            condition4 = false;
                                         }
                                         default -> {
                                             keyboard.writeLine("\n- Invalid option. Try again.");
-                                            condition4 = false;
                                         }
                                     }
                                 }
@@ -174,7 +174,7 @@ public class Main {
                                 boolean condition5 = true;
                                 while (condition5) {
                                     showEmployeeMenu();
-                                    option = inputOption("\n- Enter an option: ");
+                                    option = keyboard.inputInt("\n- Enter an option: ");
                                     switch (option) {
                                         case 1 -> {
                                             // Add employee
@@ -234,22 +234,12 @@ public class Main {
         saveToCsvFile("Reservations.csv", resContent);
     }
 
-    private static int inputOption(String message) {
-        while (true) {
-            try {
-                return keyboard.inputInt(message);
-            } catch (Exception e) {
-                keyboard.writeLine("You must enter an integer number.");
-            }
-        }
-    }
-
     private static void showHotelMenu() {
         keyboard.writeLine("\n- - - - - - - - - - - - - - - - HOTEL " + hotel.getHotelName().toUpperCase()
                 + " MENU - - - - - - - - - - - - - - - -"
                 + "\n(1) Hotel Data."
                 + "\n(2) Administrator Menu."
-                + "\n(3) Employee Menu.\n");
+                + "\n(3) Save and exit.\n");
     }
 
     private static void showHotelDataMenu() {
@@ -332,12 +322,14 @@ public class Main {
 
     private static void configHotel() {
         keyboard.writeLine("\n- - - - - - - - - - - - - - - - - - - - - - -");
-        String name = keyboard.inputText("Hotel name: ");
+        String name = keyboard.inputText("\nHotel name: ");
         String adress = keyboard.inputText("\nHotel adress: ");
         String email = keyboard.inputText("\nHotel email: ");
         long phoneNumber = keyboard.inputLong("\nHotel number: ");
-        hotel = new Hotel(name, adress, email, phoneNumber);
-        saveHotel();
+        hotel.setHotelName(name);
+        hotel.setHotelAdress(adress);
+        hotel.setHotelEmail(email);
+        hotel.setHotelPhoneNum(phoneNumber);
     }
 
     private static void showActiveReservations() {
