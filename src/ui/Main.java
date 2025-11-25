@@ -8,10 +8,7 @@ public class Main {
     private static final String FILE_NAME = "hotel.dat";
     private static IOConsoleUser keyboard = new IOConsoleUser();
 
-    /* PARA TESTEAR */
     private static Hotel hotel = new Hotel();
-    static int reservationNumber = 0;
-
     public static void main(String[] args) {
 
         CSVEncoder<Room> roomEncoder = new CSVEncoder<Room>() {
@@ -35,14 +32,16 @@ public class Main {
             @Override
             public String[] getFieldNames() {
                 return new String[] {
-                        "resNumber", "status", "initialDate", "finalDate"
+                        "reservationNumber", "roomNumber", "roomType", "guestName", "status", "initialDate", "finalDate"
                 };
             }
 
             @Override
             public String[] getValues(Reservation reservation) {
                 return new String[] {
-                        String.valueOf(reservation.getReservationNumber()), String.valueOf(reservation.getStatus()),
+                        String.valueOf(reservation.getReservationNumber()),
+                        String.valueOf(reservation.getRoom().getRoomNum()), reservation.getRoom().getRoomType(),
+                        reservation.getGuest().getName(), String.valueOf(reservation.getStatus()),
                         reservation.getInitialDate(), reservation.getFinalDate()
                 };
             }
@@ -322,10 +321,10 @@ public class Main {
 
     private static void configHotel() {
         keyboard.writeLine("\n- - - - - - - - - - - - - - - - - - - - - - -");
-        String name = keyboard.inputText("\nHotel name: ");
-        String adress = keyboard.inputText("\nHotel adress: ");
-        String email = keyboard.inputText("\nHotel email: ");
-        long phoneNumber = keyboard.inputLong("\nHotel number: ");
+        String name = keyboard.inputText("\n- Enter an Hotel name: ");
+        String adress = keyboard.inputText("\n- Enter an Hotel adress: ");
+        String email = keyboard.inputText("\n- Enter an Hotel email: ");
+        long phoneNumber = keyboard.inputLong("\n- Enter an Hotel number: ");
         hotel.setHotelName(name);
         hotel.setHotelAdress(adress);
         hotel.setHotelEmail(email);
@@ -384,7 +383,7 @@ public class Main {
     private static void changeInfo() {
         keyboard.writeLine("\n- - - - - - - - - - - - - - - - - - - - - - -");
         showChangeHotelInfoMenu();
-        int option = keyboard.inputInt("What do you want to change?\n");
+        int option = keyboard.inputInt("\n- What do you want to change?\n");
 
         switch (option) {
             case 1 -> {
@@ -452,23 +451,23 @@ public class Main {
         boolean condition = true;
 
         int option = keyboard.inputInt(
-                "\n- What do you want to change?\n(1) Name\n(2) Adress\n(3) Email\n(4) Telephone number\n(5) Leave\n-Enter an option: ");
+                "\n- What do you want to change?\n(1) Change name\n(2) Change adress\n(3) Change email\n(4) Change telephone number\n(5) Leave\n-Enter an option: ");
 
         switch (option) {
             case 1 -> {
-                hotel.setHotelName(keyboard.inputText("Enter new hotel name: "));
+                hotel.setHotelName(keyboard.inputText("\n- Enter new hotel name: "));
             }
 
             case 2 -> {
-                hotel.setHotelAdress(keyboard.inputText("Enter new hotel adress: "));
+                hotel.setHotelAdress(keyboard.inputText("\n- Enter new hotel adress: "));
             }
 
             case 3 -> {
-                hotel.setHotelEmail(keyboard.inputText("Enter new hotel email: "));
+                hotel.setHotelEmail(keyboard.inputText("\n- Enter new hotel email: "));
             }
 
             case 4 -> {
-                hotel.setHotelPhoneNum(keyboard.inputLong("Enter new hotel phone number: "));
+                hotel.setHotelPhoneNum(keyboard.inputLong("\n- Enter new hotel phone number: "));
             }
 
             case 5 -> {
@@ -477,14 +476,14 @@ public class Main {
             }
 
             default -> {
-                keyboard.writeLine("An error ocurred selecting the option.");
+                keyboard.writeLine("\n- An error ocurred selecting the option.");
             }
         }
 
         if (condition) {
-            keyboard.writeLine("\nInfo changed succesfully.");
+            keyboard.writeLine("\n- Info changed succesfully.");
         } else {
-            keyboard.writeLine("No info was changed.");
+            keyboard.writeLine("\n- No info was changed.");
         }
     }
 
@@ -494,62 +493,61 @@ public class Main {
 
     private static void changeRoomInfo() {
         showRoomList();
-        int option = keyboard.inputInt("Enter room number for changing its info: ");
-        boolean ds = true;
+        int option = keyboard.inputInt("\n- Enter room number for changing its info: ");
+        boolean condition = true;
 
         for (Room room : hotel.getRoomList()) {
             if (option == room.getRoomNum()) {
-                keyboard.writeLine("- - - - - - - - - ");
-                keyboard.writeLine("What do you want to change?\n");
+                keyboard.writeLine("\n- What do you want to change?\n");
                 showRoomInfoMenu();
-                option = keyboard.inputInt("\n - Enter an option: ");
+                option = keyboard.inputInt("\n- Enter an option: ");
 
                 switch (option) {
                     case 1 -> {
-                        room.setRoomNum(keyboard.inputInt("Enter new room number for " + room.getRoomNum()));
+                        room.setRoomNum(keyboard.inputInt("\n- Enter new room number for " + room.getRoomNum()));
                     }
 
                     case 2 -> {
                         room.setRoomBeds(
-                                keyboard.inputInt("Enter new cuantity of beds for room " + room.getRoomBeds()));
+                                keyboard.inputInt("\n- Enter new cuantity of beds for room " + room.getRoomBeds()));
                     }
 
                     case 3 -> {
                         room.setRoomBaths(keyboard
-                                .inputInt("Enter new cuantity of beds for room " + room.getRoomBaths()));
+                                .inputInt("\n- Enter new cuantity of beds for room " + room.getRoomBaths()));
                     }
 
                     case 4 -> {
-                        room.setRoomType(keyboard.inputText("Enter new type for room " + room.getRoomType()));
+                        room.setRoomType(keyboard.inputText("\n- Enter new type for room " + room.getRoomType()));
                     }
 
                     case 5 -> {
-                        keyboard.writeLine("Leaving...");
-                        ds = false;
+                        keyboard.writeLine("\n- Leaving...");
+                        condition = false;
                     }
 
                     default -> {
-                        keyboard.writeLine("An error ocurred while trying to change info");
+                        keyboard.writeLine("\n- An error ocurred while trying to change info");
                     }
                 }
             }
         }
 
-        if (ds) {
-            keyboard.writeLine("Info changed succesfully.");
+        if (condition) {
+            keyboard.writeLine("\n- Info changed succesfully.");
         } else {
-            keyboard.writeLine("No info was changed.");
+            keyboard.writeLine("\n- No info was changed.");
         }
 
     }
 
     private static void addReservation() {
         String guestName = keyboard.inputText("\n- Enter guest name: ");
-        String guestEmail = keyboard.inputText("- Enter guest email adress: ");
-        long phoneNumber = keyboard.inputLong("- Enter guest phone number: ");
-        long id = keyboard.inputLong("- Enter guest ID: ");
-        String initialDate = keyboard.inputText("- Enter reservation initial date (Day/Month/Year): ");
-        String finalDate = keyboard.inputText("- Enter reservation final date (Day/Month/Year): ");
+        String guestEmail = keyboard.inputText("\n- Enter guest email adress: ");
+        long phoneNumber = keyboard.inputLong("\n- Enter guest phone number: ");
+        long id = keyboard.inputLong("\n- Enter guest ID: ");
+        String initialDate = keyboard.inputText("\n- Enter reservation initial date (Day/Month/Year): ");
+        String finalDate = keyboard.inputText("\n- Enter reservation final date (Day/Month/Year): ");
         Guest guest = new Guest(guestName, guestEmail, phoneNumber, id);
 
         showAvailableRooms();
@@ -590,10 +588,16 @@ public class Main {
     }
 
     private static void disableReservation() {
+        boolean condition = false;
         long id = keyboard.inputLong("\n- Enter reservation number: ");
         for (Reservation reservation : hotel.getReservationList()) {
             if (id == reservation.getReservationNumber()) {
                 hotel.disableReservation(reservation);
+                keyboard.writeLine("\n- The reservation has been successfully disabled.");
+                condition = true;
+            }
+            if(!condition){
+                keyboard.writeLine("\n- The reservation doesn't exist. Try again");
             }
         }
     }
