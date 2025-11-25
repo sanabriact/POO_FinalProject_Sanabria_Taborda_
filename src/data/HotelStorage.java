@@ -10,6 +10,8 @@ public class HotelStorage {
     public static void save(Hotel hotel, String filename){
         try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))){
             out.writeObject(hotel);
+            out.writeInt(Reservation.getNextNumber());
+            out.writeInt(Employee.getNextNumber());
             System.out.println("Hotel data saved succesfully.");
         }catch(IOException exception){
             System.err.println("an error occurred while saving hotel data.");
@@ -18,7 +20,12 @@ public class HotelStorage {
 
     public static Hotel load(String filename){
         try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))){
-            return (Hotel) in.readObject();
+            Hotel hotel = (Hotel) in.readObject();
+            int nextNumRes = in.readInt();
+            int nextNumEmp = in.readInt();
+            Reservation.setNextNumber(nextNumRes);
+            Employee.setNextNumber(nextNumEmp);
+            return hotel;
         }catch(IOException | ClassNotFoundException exception){
             System.err.println("an error occurred while loading hotel data.");
             return null;
