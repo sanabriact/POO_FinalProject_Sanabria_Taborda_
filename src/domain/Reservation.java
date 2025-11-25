@@ -3,11 +3,12 @@ package domain;
 import java.io.Serializable;
 
 public class Reservation implements Serializable {
-    //static int because all reservations share this attribute. For each new reservation "resNumber" increases by one
+    // static int because all reservations share this attribute. For each new
+    // reservation "resNumber" increases by one
     private static int nextNumber = 0;
     private Guest guest;
     private Room room;
-    private int resNumber = 0;
+    private int resNumber;
     private boolean status;
     private String initialDate;
     private String finalDate;
@@ -17,7 +18,8 @@ public class Reservation implements Serializable {
         this.room = room;
         this.initialDate = initialDate;
         this.finalDate = finalDate;
-        this.resNumber = nextNumber++;
+        nextNumber++;
+        this.resNumber = nextNumber;
         this.status = true;
         this.room.setAvailabilty(false);
     }
@@ -36,6 +38,10 @@ public class Reservation implements Serializable {
 
     public int getReservationNumber() {
         return resNumber;
+    }
+
+    public static int getNextNumber() {
+        return nextNumber;
     }
 
     public String getInitialDate() {
@@ -66,10 +72,15 @@ public class Reservation implements Serializable {
         this.finalDate = finalDate;
     }
 
+    public static void setNextNumber(int number) {
+        nextNumber = number;
+    }
+
     @Override
     public String toString() {
-
-        return "Reservation: {number: " + resNumber + ", status: " + status + ", initial date: " + initialDate
+        return "Reservation: {reservationNumber: " + resNumber + ", room: " + getRoom().getRoomNum() + ", roomType: "
+                + getRoom().getRoomType() + ", guest: " + getGuest().getName() + ", status: " + status
+                + ", initial date: " + initialDate
                 + ", final date: " + finalDate + "}";
     }
 }
