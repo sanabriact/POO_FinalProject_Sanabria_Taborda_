@@ -4,7 +4,7 @@ public class Employee extends Guest {
     // static int because all Employees share this attribute For each new reservation "employeeNumber" increases by one
     private static int nextNumber = 0;
     private double salary;
-    private int employeeNumber = 0;
+    private int employeeNumber;
     private String position;
     private boolean active;
 
@@ -12,7 +12,8 @@ public class Employee extends Guest {
         super(name, email, phoneNumber, id);
         this.salary = salary;
         this.position = position;
-        this.employeeNumber = nextNumber++;
+        nextNumber++;
+        this.employeeNumber = nextNumber;
         this.active = true;
     }
 
@@ -30,6 +31,14 @@ public class Employee extends Guest {
 
     public int getEmployeeNumber() {
         return employeeNumber;
+    }
+
+    public static int getNextNumber(){
+        return nextNumber;
+    }
+
+    public static void setNextNumber(int number){
+        nextNumber = number;
     }
 
     public void setSalary(double salary) {
