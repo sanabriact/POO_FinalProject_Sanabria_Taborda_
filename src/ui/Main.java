@@ -69,7 +69,7 @@ public class Main {
             // HOTEL MENU
             showHotelMenu();
             option = keyboard.inputInt("\n- Enter an option: ");
-            
+
             switch (option) {
                 case 1 -> {
                     boolean condition = true;
@@ -125,13 +125,11 @@ public class Main {
                                         }
                                         case 2 -> {
                                             // Show active reservations
-                                            showActiveReservations();
-                                            saveHotel();
+                                            showActiveReservations();                                            
                                         }
                                         case 3 -> {
                                             // Show available rooms
-                                            showAvailableRooms();
-                                            saveHotel();
+                                            showAvailableRooms();                                            
                                         }
                                         case 4 -> {
                                             // Disable reservation
@@ -195,8 +193,7 @@ public class Main {
                                         }
                                         case 2 -> {
                                             // Show employee list
-                                            showEmployeeList();
-                                            saveHotel();
+                                            showEmployeeList();                                            
                                         }
                                         case 3 -> {
                                             // Change employee info
@@ -205,8 +202,7 @@ public class Main {
                                         }
                                         case 4 -> {
                                             // search employee
-                                            searchEmployeeByNumber();
-                                            saveHotel();
+                                            searchEmployeeByNumber();                                            
                                         }
                                         case 5 -> {
                                             // Dismiss employee
@@ -358,7 +354,8 @@ public class Main {
 
         long phoneNumber = keyboard.inputLong("\n- Hotel number: ");
         while (phoneNumber == hotel.getHotelPhoneNum()) {
-            phoneNumber = keyboard.inputLong("\nPhone number entered is the actual hotel phone number.\n- Enter another phone number: ");
+            phoneNumber = keyboard.inputLong(
+                    "\nPhone number entered is the actual hotel phone number.\n- Enter another phone number: ");
         }
 
         hotel.setHotelName(name);
@@ -608,32 +605,39 @@ public class Main {
     }
 
     private static void addReservation() {
-        String guestName = keyboard.inputText("\n- Enter guest name: ");
-        String guestEmail = keyboard.inputText("\n- Enter guest email adress: ");
-        long phoneNumber = keyboard.inputLong("\n- Enter guest phone number: ");
-        long id = keyboard.inputLong("\n- Enter guest ID: ");
-        String initialDate = keyboard.inputText("\n- Enter reservation initial date (Day/Month/Year): ");
-        String finalDate = keyboard.inputText("\n- Enter reservation final date (Day/Month/Year): ");
-        Guest guest = new Guest(guestName, guestEmail, phoneNumber, id);
 
-        showAvailableRooms();
-        boolean condition = false;
+        if (hotel.getAvailableRooms().isEmpty()) {
+            keyboard.writeLine(
+                    "- - - - - - - - -\nNo available room at this time. Reservation can't be done.\n - - - - - - - - -");
+        } else {
+            String guestName = keyboard.inputText("\n- Enter guest name: ");
+            String guestEmail = keyboard.inputText("\n- Enter guest email adress: ");
+            long phoneNumber = keyboard.inputLong("\n- Enter guest phone number: ");
+            long id = keyboard.inputLong("\n- Enter guest ID: ");
+            String initialDate = keyboard.inputText("\n- Enter reservation initial date (Day/Month/Year): ");
+            String finalDate = keyboard.inputText("\n- Enter reservation final date (Day/Month/Year): ");
+            Guest guest = new Guest(guestName, guestEmail, phoneNumber, id);
 
-        do {
-            int roomNum = keyboard.inputInt("\n- Enter the room number that the customer requested: ");
-            Room room = hotel.findRoomById(roomNum);
+            showAvailableRooms();
+            boolean condition = false;
 
-            if (room != null && room.getAvailability()) {
-                hotel.addReservation(new Reservation(guest, room, initialDate, finalDate));
-                keyboard.writeLine("\n- Reservation created successfully");
-                condition = true;
-            } else {
-                keyboard.writeLine("\n- The room isn't available or doesn't exist. Try again.\n");
-            }
-        } while (!condition);
+            do {
+                int roomNum = keyboard.inputInt("\n- Enter the room number that the customer requested: ");
+                Room room = hotel.findRoomById(roomNum);
+
+                if (room != null && room.getAvailability()) {
+                    hotel.addReservation(new Reservation(guest, room, initialDate, finalDate));
+                    keyboard.writeLine("\n- Reservation created successfully");
+                    condition = true;
+                } else {
+                    keyboard.writeLine("\n- The room isn't available or doesn't exist. Try again.\n");
+                }
+            } while (!condition);
+        }
     }
 
     private static void addRoom() {
+        keyboard.writeLine("\n              ADD ROOM");
         int roomNumber = keyboard.inputInt("\n- Room number: ");
         int beds = keyboard.inputInt("\n- Cuantity of beds: ");
         int baths = keyboard.inputInt("\n- Cuantity of baths: ");
@@ -643,6 +647,7 @@ public class Main {
     }
 
     private static void addEmployee() {
+        keyboard.writeLine("\n              ADD EMPLOYEE");
         String name = keyboard.inputText("\n- Enter employee's name: ");
         String email = keyboard.inputText("\n- Enter employee's email adress: ");
         long phoneNumber = keyboard.inputLong("\n- Enter employee's phone number: ");
