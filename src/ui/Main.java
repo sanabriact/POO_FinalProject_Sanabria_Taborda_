@@ -608,26 +608,21 @@ public class Main {
                     case 1 -> {
                         room.setRoomNum(keyboard.inputInt("\n- Enter new room number for " + room.getRoomNum()));
                     }
-
                     case 2 -> {
                         room.setRoomBeds(
                                 keyboard.inputInt("\n- Enter new cuantity of beds for room " + room.getRoomBeds()));
                     }
-
                     case 3 -> {
                         room.setRoomBaths(keyboard
                                 .inputInt("\n- Enter new cuantity of beds for room " + room.getRoomBaths()));
                     }
-
                     case 4 -> {
                         room.setRoomType(keyboard.inputText("\n- Enter new type for room " + room.getRoomType()));
                     }
-
                     case 5 -> {
                         keyboard.writeLine("\nLeaving...");
                         condition = false;
                     }
-
                     default -> {
                         keyboard.writeLine("\n- An error ocurred while trying to change info");
                     }
@@ -660,17 +655,9 @@ public class Main {
             String initialDate = "";
             do {
                 int day = keyboard.inputInt("\n- Enter reservation initial day: ");
-                while (day < 0 || day > 31) {
-                    day = keyboard.inputInt("\n- Day doesn't exist.\n- Enter reservation initial day: ");
-                }
                 int month = keyboard.inputInt("\n- Enter reservation initial month: ");
-                while (month < 0 || month > 12) {
-                    month = keyboard.inputInt("\n- Month doesn't exist.\n- Enter reservation initial month: ");
-                }
                 int year = keyboard.inputInt("\n- Enter reservation year: ");
-                while (year < 2025) {
-                    year = keyboard.inputInt("\n- Year invalid.\n- Enter reservation year: ");
-                }
+              
                 if (dateValidation(day, month, year) == true) {
                     initialDate = day + "/" + month + "/" + year;
                     condition = false;
@@ -684,17 +671,8 @@ public class Main {
             String finalDate = "";
             do {
                 int day = keyboard.inputInt("\n- Enter reservation final day: ");
-                while (day < 0 || day > 31) {
-                    day = keyboard.inputInt("\n- Day doesn't exist.\n- Enter reservation initial day: ");
-                }
                 int month = keyboard.inputInt("\n- Enter reservation final month: ");
-                while (month < 0 || month > 12) {
-                    month = keyboard.inputInt("\n- Month doesn't exist.\n- Enter reservation initial month: ");
-                }
                 int year = keyboard.inputInt("\n- Enter reservation final year: ");
-                while (year < 2025 || year >= 9999) {
-                    year = keyboard.inputInt("\n- Year invalid.\n- Enter reservation year: ");
-                }
 
                 if (dateValidation(day, month, year) == true) {
                     finalDate = day + "/" + month + "/" + year;
@@ -702,11 +680,9 @@ public class Main {
                 } else {
                     keyboard.writeLine("\n- The date that you entered doesn't exist.");
                 }
-
             } while (condition);
 
             showAvailableRooms();
-
             condition = false;
 
             do {
@@ -801,17 +777,37 @@ public class Main {
                     } while (!condition);
                 }
                 case 6 -> {
-                    int day = keyboard.inputInt("\n- Enter reservation initial day: ");
-                    int month = keyboard.inputInt("\n- Enter reservation initial month: ");
-                    int year = keyboard.inputInt("\n- Enter reservation initial year: ");
-                    String initialDate = day + "/" + month + "/" + year;
+                    boolean condition = true;
+                    String initialDate = "";
+                    do {
+                        int day = keyboard.inputInt("\n- Enter reservation initial day: ");
+                        int month = keyboard.inputInt("\n- Enter reservation initial month: ");
+                        int year = keyboard.inputInt("\n- Enter reservation year: ");
+                        if (dateValidation(day, month, year) == true) {
+                            initialDate = day + "/" + month + "/" + year;
+                            condition = false;
+                        } else {
+                            keyboard.writeLine("\n- The date that you entered doesn't exist.");
+                        }
+
+                    } while (condition);
                     hotel.findReservationByNumber(reservationNumber).setInitialDate(initialDate);
                 }
                 case 7 -> {
-                    int day = keyboard.inputInt("\n- Enter reservation final day: ");
-                    int month = keyboard.inputInt("\n- Enter reservation final month: ");
-                    int year = keyboard.inputInt("\n- Enter reservation final year: ");
-                    String finalDate = day + "/" + month + "/" + year;
+                    boolean condition = true;
+                    String finalDate = "";
+                    do {
+                        int day = keyboard.inputInt("\n- Enter reservation final day: ");
+                        int month = keyboard.inputInt("\n- Enter reservation final month: ");
+                        int year = keyboard.inputInt("\n- Enter reservation final year: ");
+                        if (dateValidation(day, month, year) == true) {
+                            finalDate = day + "/" + month + "/" + year;
+                            condition = false;
+                        } else {
+                            keyboard.writeLine("\n- The date that you entered doesn't exist.");
+                        }
+
+                    } while (condition);
                     hotel.findReservationByNumber(reservationNumber).setFinalDate(finalDate);
                 }
                 case 8 -> {
@@ -821,7 +817,9 @@ public class Main {
                     keyboard.writeLine("\n- Invalid option. Try again.");
                 }
             }
-        } else {
+        } else
+
+        {
             keyboard.writeLine("\n- The reservation doesn't exist, please try again");
         }
 
