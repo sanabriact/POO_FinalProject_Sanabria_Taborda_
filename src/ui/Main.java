@@ -5,7 +5,7 @@ import domain.*;
 import utils.*;
 
 public class Main {
-    private static final String FILE_NAME = "hotel.dat";
+    private static final String FILE_NAME = "Hotel.dat";
     private static IOConsoleUser keyboard = new IOConsoleUser();
 
     private static Hotel hotel = new Hotel();
@@ -48,17 +48,53 @@ public class Main {
             }
         };
 
-        /*
-         * PARA TESTEAR hotel.addRoom(new Room(101, 2, 1, "basic"));
-         * /* PARA TESTEAR hotel.addRoom(new Room(102, 2, 1, "medium"));
-         */
-        /* PARA TESTEAR hotel.addRoom(new Room(103, 2, 1, "suit")); */
-        /* PARA TESTEAR hotel.addRoom(new Room(104, 2, 1, "medium")); */
-        /* PARA TESTEAR hotel.addRoom(new Room(105, 2, 1, "medium")); */
-        /* PARA TESTEAR hotel.addRoom(new Room(201, 2, 1, "medium")); */
-        /* PARA TESTEAR hotel.addRoom(new Room(202, 2, 1, "medium")); */
-        /* PARA TESTEAR hotel.addRoom(new Room(203, 2, 1, "medium")); */
-        /* PARA TESTEAR hotel.addRoom(new Room(204, 2, 1, "medium")); */
+        CSVEncoder<Guest> guestEncoder = new CSVEncoder<Guest>() {
+            @Override
+            public String[] getFieldNames() {
+                return new String[] {
+                        "id", "name", "email", "phoneNumber"
+                };
+            }
+
+            @Override
+            public String[] getValues(Guest guest) {
+                return new String[] {
+                        String.valueOf(guest.getId()), guest.getName(), guest.getEmail(),
+                        String.valueOf(guest.getPhoneNum())
+                };
+            }
+        };
+
+        CSVEncoder<Employee> employeeEncoder = new CSVEncoder<Employee>() {
+            @Override
+            public String[] getFieldNames() {
+                return new String[] {
+                        "employeeNumber", "id", "name", "email", "phoneNumber", "position", "salary", "active"
+                };
+            }
+
+            @Override
+            public String[] getValues(Employee employee) {
+                return new String[] {
+                        String.valueOf(employee.getEmployeeNumber()), String.valueOf(employee.getId()),
+                        employee.getName(), employee.getEmail(), String.valueOf(employee.getPhoneNum()),
+                        employee.getPosition(), String.valueOf(employee.getSalary()),
+                        String.valueOf(employee.getActive())
+                };
+            }
+        };
+
+        
+         /*PARA TESTEAR*/ hotel.addRoom(new Room(101, 2, 1, "basic"));
+          /* PARA TESTEAR*/ hotel.addRoom(new Room(102, 2, 1, "medium"));
+         
+        /* PARA TESTEAR*/ hotel.addRoom(new Room(103, 2, 1, "suit")); 
+        /* PARA TESTEAR*/ hotel.addRoom(new Room(104, 2, 1, "medium")); 
+        /* PARA TESTEAR*/ hotel.addRoom(new Room(105, 2, 1, "medium")); 
+        /* PARA TESTEAR*/ hotel.addRoom(new Room(201, 2, 1, "medium")); 
+        /* PARA TESTEAR*/ hotel.addRoom(new Room(202, 2, 1, "medium")); 
+        /* PARA TESTEAR*/ hotel.addRoom(new Room(203, 2, 1, "medium")); 
+        /* PARA TESTEAR*/ hotel.addRoom(new Room(204, 2, 1, "medium")); 
 
         boolean menu = true;
         int option;
@@ -125,11 +161,11 @@ public class Main {
                                         }
                                         case 2 -> {
                                             // Show active reservations
-                                            showActiveReservations();                                            
+                                            showActiveReservations();
                                         }
                                         case 3 -> {
                                             // Show available rooms
-                                            showAvailableRooms();                                            
+                                            showAvailableRooms();
                                         }
                                         case 4 -> {
                                             // Disable reservation
@@ -193,7 +229,7 @@ public class Main {
                                         }
                                         case 2 -> {
                                             // Show employee list
-                                            showEmployeeList();                                            
+                                            showEmployeeList();
                                         }
                                         case 3 -> {
                                             // Change employee info
@@ -202,7 +238,7 @@ public class Main {
                                         }
                                         case 4 -> {
                                             // search employee
-                                            searchEmployeeByNumber();                                            
+                                            searchEmployeeByNumber();
                                         }
                                         case 5 -> {
                                             // Dismiss employee
@@ -246,6 +282,10 @@ public class Main {
         saveToCsvFile("Rooms.csv", roomContent);
         String resContent = reservationEncoder.encode(hotel.getReservationList());
         saveToCsvFile("Reservations.csv", resContent);
+        String guestContent = guestEncoder.encode(hotel.getGuestList());
+        saveToCsvFile("Guests.csv", guestContent);
+        String employeeContent = employeeEncoder.encode(hotel.getEmployeeList());
+        saveToCsvFile("Employees.csv", employeeContent);
     }
 
     private static void showHotelMenu() {
