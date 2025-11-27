@@ -657,70 +657,52 @@ public class Main {
             Guest guest = new Guest(guestName, guestEmail, phoneNumber, id);
 
             boolean condition = true;
-            String initialDate = "", finalDate="";
+            String initialDate = "";
             do {
                 int day = keyboard.inputInt("\n- Enter reservation initial day: ");
-                while(day < 0 || day > 31) {
+                while (day < 0 || day > 31) {
                     day = keyboard.inputInt("\n- Day doesn't exist.\n- Enter reservation initial day: ");
                 }
                 int month = keyboard.inputInt("\n- Enter reservation initial month: ");
-                while(month < 0 || month > 12) {
+                while (month < 0 || month > 12) {
                     month = keyboard.inputInt("\n- Month doesn't exist.\n- Enter reservation initial month: ");
                 }
                 int year = keyboard.inputInt("\n- Enter reservation year: ");
-                while(year < 2025) {
+                while (year < 2025) {
                     year = keyboard.inputInt("\n- Year invalid.\n- Enter reservation year: ");
                 }
-                if (year > 0 && month > 0 && day > 0) {
-                    if (month == 2 && day < 29) {
-                        initialDate = day + "/" + month + "/" + year;
-                        condition = false;
-                    } else if ((month == 4 || month == 6 || month == 9 || month == 11) && day < 31) {
-                        initialDate = day + "/" + month + "/" + year;
-                        condition = false;
-                    } else if ((month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10
-                            || month == 12) && day <= 31) {
-                        initialDate = day + "/" + month + "/" + year;
-                        condition = false;
-                    } else {
-                        keyboard.writeLine("\n- The date that you entered doesn't exist.");
-                    }
-                }else{
+                if (dateValidation(day, month, year) == true) {
+                    initialDate = day + "/" + month + "/" + year;
+                    condition = false;
+                } else {
                     keyboard.writeLine("\n- The date that you entered doesn't exist.");
                 }
+
             } while (condition);
 
             condition = true;
+            String finalDate = "";
             do {
                 int day = keyboard.inputInt("\n- Enter reservation final day: ");
-                while(day < 0 || day > 31) {
+                while (day < 0 || day > 31) {
                     day = keyboard.inputInt("\n- Day doesn't exist.\n- Enter reservation initial day: ");
                 }
                 int month = keyboard.inputInt("\n- Enter reservation final month: ");
-                while(month < 0 || month > 12) {
+                while (month < 0 || month > 12) {
                     month = keyboard.inputInt("\n- Month doesn't exist.\n- Enter reservation initial month: ");
                 }
                 int year = keyboard.inputInt("\n- Enter reservation final year: ");
-                while(year < 2025) {
+                while (year < 2025 || year >= 9999) {
                     year = keyboard.inputInt("\n- Year invalid.\n- Enter reservation year: ");
                 }
-                if (year > 0 && month > 0 && day > 0) {
-                    if (month == 2 && day < 29) {
-                        finalDate = day + "/" + month + "/" + year;
-                        condition = false;
-                    } else if ((month == 4 || month == 6 || month == 9 || month == 11) && day < 31) {
-                        finalDate = day + "/" + month + "/" + year;
-                        condition = false;
-                    } else if ((month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10
-                            || month == 12) && day <= 31) {
-                        finalDate = day + "/" + month + "/" + year;
-                        condition = false;
-                    } else {
-                        keyboard.writeLine("\n- The date that you entered doesn't exist.");
-                    }
-                }else{
+
+                if (dateValidation(day, month, year) == true) {
+                    finalDate = day + "/" + month + "/" + year;
+                    condition = false;
+                } else {
                     keyboard.writeLine("\n- The date that you entered doesn't exist.");
                 }
+
             } while (condition);
 
             showAvailableRooms();
@@ -904,6 +886,22 @@ public class Main {
         } else {
             keyboard.writeLine("\n- The employee doesn't exist, please try again.");
         }
+    }
+
+    private static boolean dateValidation(int day, int month, int year) {
+        if ((year > 2025 || year <= 9999) && (month > 0 || month < 13) && (day > 0 && day < 32)) {
+            if (month == 2 && day < 29) {
+                return true;
+            }
+            if ((month == 4 || month == 6 || month == 9 || month == 11) && day < 31) {
+                return true;
+            }
+            if ((month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10
+                    || month == 12) && day <= 31) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void loadHotel() {
