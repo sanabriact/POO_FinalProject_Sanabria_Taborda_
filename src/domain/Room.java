@@ -78,5 +78,4 @@ public class Room implements Serializable {
     public String toString() {
         return "Room{roomNum=" + roomNum + ", roomType=" + roomType + ", beds=" + beds + ", baths=" + baths + "}";
     }
-
 }
