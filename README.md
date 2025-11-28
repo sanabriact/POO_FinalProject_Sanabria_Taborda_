@@ -11,6 +11,7 @@ Gracias a esta organización (realizada a través de un diagrama de clases UML) 
 Además, la aplicación implementa el almacenamiento de datos en archivos externos.  El uso de estructuras de datos adecuadas y la serialización correcta garantizan un manejo confiable de la información.
 
 ### Instrucciones para ejecutar el programa
-El programa es ejecutable a través de la consola virtual. A través de esta, se presenta primero un menú con 3 opciones principales: >**A**
+El programa es ejecutable a través de la consola virtual. Cuando se inicia el programa, se presenta a través de esta un menú con 3 opciones principales: 
+<mark>1. Información del Hotel.</mark>
 
 
