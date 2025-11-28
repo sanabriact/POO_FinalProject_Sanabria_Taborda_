@@ -62,22 +62,38 @@ public class Hotel implements Serializable {
 
     // Sets the name of the hotel.
     public void setHotelName(String hotelName) {
-        this.hotelName = hotelName;
+        if (hotelName.isEmpty()) {
+            this.hotelName = hotelName;
+        } else {
+            this.hotelName = hotelName;
+        }
     }
 
     // Sets the address of the hotel.
     public void setHotelAdress(String hotelAdress) {
-        this.hotelAdress = hotelAdress;
+        if (hotelAdress.isEmpty()) {
+            this.hotelAdress = null;
+        } else {
+            this.hotelAdress = hotelAdress;
+        }
     }
 
     // Sets the hotel’s email.
     public void setHotelEmail(String hotelEmail) {
-        this.hotelEmail = hotelEmail;
+        if (hotelEmail.isEmpty()) {
+            this.hotelEmail = null;
+        } else {
+            this.hotelEmail = hotelEmail;
+        }
     }
 
     // Sets the hotel's phone number.
     public void setHotelPhoneNum(long hotelPhoneNum) {
-        this.hotelPhoneNum = hotelPhoneNum;
+        if (hotelPhoneNum <= 0) {
+            this.hotelPhoneNum = 0;
+        } else {
+            this.hotelPhoneNum = hotelPhoneNum;
+        }
     }
 
     // Adds a room to the hotel’s room list.
@@ -140,9 +156,9 @@ public class Hotel implements Serializable {
     }
 
     // Searches for an employee by employee number.
-    public Employee findEmployeeByNumber(long employeeNumber){
-        for(Employee employee : employees){
-            if(employeeNumber == employee.getEmployeeNumber()){
+    public Employee findEmployeeByNumber(long employeeNumber) {
+        for (Employee employee : employees) {
+            if (employeeNumber == employee.getEmployeeNumber()) {
                 return employee;
             }
         }
