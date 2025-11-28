@@ -13,15 +13,15 @@ Además, la aplicación implementa el almacenamiento de datos en archivos extern
 ### Instrucciones para ejecutar el programa
 El programa es ejecutable a través de la consola virtual. Cuando se inicia el programa, se presenta a través de esta un menú con 3 opciones principales: 
 #### 1. Información del Hotel.
-Esta sección del programa permite al operador que lo use configuar el hotel: Añadir habitaciones al hotel, Configurar hotel o cambiar información. 
+Esta sección del programa permite al operador que lo use configuar el hotel: Añadir habitaciones al hotel, configurar hotel o cambiar información. 
 En configurar hotel, se le asigna un nombre, correo, número telefónico y dirección al hotel (Equivalente a los datos reales del establecimiento)
 #### 2. Menú de administrador.
 Esta sección del sistema es la más importante. Abre otro menú, en donde se presentan opciones que permiten ir al manejo interno de 3 aspectos: Reservas, Registros y Empleados. 
 
 En reservas, se despliega un menú en donde se crean, desactivan o modifican reservas. Por último, se muestran listas de reservas activas y habitaciones.
-En la sección Registros, se pueden mostrar el registro histórico de reservas (activas y consumadas) o de forma individual para una búsqueda más precisa y rápida, así como también de huéspedes.
+En la sección registros, se pueden mostrar el registro histórico de reservas (activas y consumadas) o de forma individual para una búsqueda más precisa y rápida, así como también la implementación de los mismos métodos para los huéspedes.
+Por último, en empleados se permite administrar toda la información acerca del personal y la lista de este. Añadir, buscar, despedir o cambiar información de los empleados, así como de mostrar la lista de los mismos, son las funciones que esta sección realiza.
 
-Por último, en Empleados permite administrar toda la información acerca del personal y la lista de este. Añadir, buscar, despedir o cambiar información de los empleados, así como de mostrar la lista de los mismos,  son las funciones que esta sección realiza.
 #### 3. Guardar y salir del programa.
 Por términos de seguridad, se debe garantizar la protección de la información cambiada, por lo que esta opción permite guardar todos los cambios hechos (a pesar de que se hagan automáticamente al hacer cualquier cambio en los incisos 1 o 2) y salir del programa automaticamente. 
 
@@ -58,4 +58,6 @@ Por términos de seguridad, se debe garantizar la protección de la información
 
 - - - - - - - - ACTIVE RESERVATIONS - - - - - - - - - -
 Reservation: {reservationNumber: 1, room: 101, roomType: basic, guest: mario bravo, status: true, initial date: 2/3/2025, final date: 5/3/2025}
-Reservation: {reservationNumber: 2, room: 103, roomType: medium, guest: mi papa, status: true, initial date: 2/3/2025, final date: 6/3/2025}
+Reservation: {reservationNumber: 2, room: 103, roomType: medium, guest: mi papa, status: true, initial date: 2/3/2025, final date: 6/3/2025} }
+```
+
