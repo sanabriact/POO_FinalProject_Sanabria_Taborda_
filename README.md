@@ -21,5 +21,42 @@ Esta sección del sistema es la más importante. Abre otro menú, en donde se pr
 En reservas, se despliega un menú en donde se crean, desactivan o modifican reservas. Por último, se muestran listas de reservas activas y habitaciones.
 En la sección Registros, se pueden mostrar el registro histórico de reservas (activas y consumadas) o de forma individual para una búsqueda más precisa y rápida, así como también de huéspedes.
 
-Por último, en Empleados permite administrar toda la información acerca del personal y la lista de este. Añadir, cambiar información de , buscar o despedir empleado, además de mostrar la lista de los mismos son las funciones que esta sección realiza.
+Por último, en Empleados permite administrar toda la información acerca del personal y la lista de este. Añadir, buscar, despedir o cambiar información de los empleados, así como de mostrar la lista de los mismos,  son las funciones que esta sección realiza.
+#### 3. Guardar y salir del programa.
+Por términos de seguridad, se debe garantizar la protección de la información cambiada, por lo que esta opción permite guardar todos los cambios hechos (a pesar de que se hagan automáticamente al hacer cualquier cambio en los incisos 1 o 2) y salir del programa automaticamente. 
 
+### Ejemplo de entrada y salida
+### Ejemplo de interacción en consola
+
+```text
+- - - - - - - - - - - - - - - - HOTEL GOOD VIBES MENU - - - - - - - - - - - - - - - -
+(1) Hotel Data.
+(2) Administrator Menu.
+(3) Save and exit.
+
+- Enter an option:
+2
+
+- - - - - - - - ADMINISTRATOR MENU - - - - - - - - - -
+(1) Reservations.
+(2) Record.
+(3) Employees.
+(4) Go back.
+
+- Enter an option:
+1
+
+- - - - - - - - RESERVATION MENU - - - - - - - - - -
+(1) Add reservation.
+(2) Show active Reservations.
+(3) Show available rooms.
+(4) Disable reservation.
+(5) Change reservation data.
+(6) Go back.
+
+- Enter an option:
+2
+
+- - - - - - - - ACTIVE RESERVATIONS - - - - - - - - - -
+Reservation: {reservationNumber: 1, room: 101, roomType: basic, guest: mario bravo, status: true, initial date: 2/3/2025, final date: }
+Reservation: {reservationNumber: 2, room: 103, roomType: medium, guest: mi papa, status: true, initial date: 2/3/2025, final date: 6/3/2025}
