@@ -465,7 +465,7 @@ public class Main {
         while (catcher) {
             try {
                 Double.parseDouble(name);
-                name = keyboard.inputText("Error. Email can't be numbers.\n- Enter employee's name: ");
+                name = keyboard.inputText("Error. Email can't be numbers.\n- Enter hotel's name: ");
             } catch (NumberFormatException e) {
                 catcher = false;
             }
@@ -481,7 +481,7 @@ public class Main {
         while (catcher) {
             try {
                 Double.parseDouble(adress);
-                adress = keyboard.inputText("Error. Email can't be numbers.\n- Enter employee's name: ");
+                adress = keyboard.inputText("Error. Email can't be numbers.\n- Enter hotel's adress: ");
             } catch (NumberFormatException e) {
                 catcher = false;
             }
@@ -497,7 +497,7 @@ public class Main {
         while (catcher) {
             try {
                 Double.parseDouble(email);
-                email = keyboard.inputText("Error. Email can't be numbers.\n- Enter employee's name: ");
+                email = keyboard.inputText("Error. Email can't be numbers.\n- Enter hotel's email: ");
             } catch (NumberFormatException e) {
                 catcher = false;
             }
@@ -1008,7 +1008,7 @@ public class Main {
             keyboard.writeLine(
                     "- - - - - - - - -\nNo employees registered. Operation can't be finished.\n - - - - - - - - -");
         } else {
-            long employeeId = keyboard.inputLong("\n- Enter the employee number that yoy want search: ");
+            long employeeId = keyboard.inputLong("\n- Enter the employee number that you want search: ");
             Employee employee = hotel.findEmployeeByNumber(employeeId);
             if (employee != null) {
                 keyboard.writeLine("\n- Employee found successfully.");
