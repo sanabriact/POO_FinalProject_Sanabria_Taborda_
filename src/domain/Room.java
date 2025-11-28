@@ -6,12 +6,14 @@ public class Room implements Serializable {
     private int roomNum, beds, baths;
     private String roomType = "";
     private boolean available;
+    private double price;
 
-    public Room(int roomNum, int beds, int baths, String roomType) {
+    public Room(int roomNum, int beds, int baths, String roomType, double price) {
         this.roomNum = roomNum;
         this.beds = beds;
         this.baths = baths;
         this.available = true;
+        this.price = price;
         if (roomType.toLowerCase().equals("basic") || roomType.toLowerCase().equals("medium") || roomType.toLowerCase().equals("suit")) {
             this.roomType = roomType;
         }else{
@@ -36,24 +38,8 @@ public class Room implements Serializable {
         return this.roomType;
     }
 
-    public boolean getSeaView() {
-        if (this.roomType.equals("Basic")) {
-            return false;
-        }
-
-        return true;
-    }
-
     public double getPrice() {
-        if (this.roomType.equals("Basic")) {
-            return 39.99;
-        }
-
-        if (this.roomType.equals("Medium")) {
-            return 59.99;
-        }
-
-        return 99.99;
+        return price;
     }
 
     public boolean getAvailability() {
@@ -78,6 +64,14 @@ public class Room implements Serializable {
 
     public void setAvailabilty(boolean available) {
         this.available = available;
+    }
+
+    public void setPrice(double price){
+        if(price<= 0){
+            this.price = 0;
+        }else{
+            this.price = price;
+        }
     }
 
     @Override
