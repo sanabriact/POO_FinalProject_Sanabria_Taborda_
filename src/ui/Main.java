@@ -374,19 +374,52 @@ public class Main {
     }
 
     private static void configHotel() {
+        boolean catcher = true;
         keyboard.writeLine("\n              CONFIGURE HOTEL");
 
         String name = keyboard.inputText("\n- Hotel name: ");
+
+        while (catcher) {
+            try {
+                Double.parseDouble(name);
+                name = keyboard.inputText("Error. Email can't be numbers.\n- Enter employee's name: ");
+            } catch (NumberFormatException e) {
+                catcher = false;
+            }
+        }
+        
         while (name.equals(hotel.getHotelName())) {
             name = keyboard.inputText("\nName entered is the actual hotel name.\n- Enter another name: ");
         }
 
         String adress = keyboard.inputText("\n- Hotel adress: ");
+
+        catcher = true;
+        while (catcher) {
+            try {
+                Double.parseDouble(adress);
+                adress = keyboard.inputText("Error. Email can't be numbers.\n- Enter employee's name: ");
+            } catch (NumberFormatException e) {
+                catcher = false;
+            }
+        }
+
         while (adress.equals(hotel.getHotelAdress())) {
             adress = keyboard.inputText("\nAdress entered is the actual hotel adress.\n- Enter another adress: ");
         }
 
         String email = keyboard.inputText("\n- Hotel email: ");
+
+        catcher = true;
+        while (catcher) {
+            try {
+                Double.parseDouble(email);
+                email = keyboard.inputText("Error. Email can't be numbers.\n- Enter employee's name: ");
+            } catch (NumberFormatException e) {
+                catcher = false;
+            }
+        }
+        
         while (email.equals(hotel.getHotelEmail())) {
             email = keyboard.inputText("\nEmail entered is the actual hotel email.\n- Enter another email: ");
         }
@@ -498,51 +531,55 @@ public class Main {
     }
 
     private static void changeEmployeeInfo() {
-        int employeeNumber = keyboard.inputInt("\n- Enter the Employee number that yo want to change: ");
-        if (employeeNumber > 0) {
-            showChangeEmployeeInfoMenu();
-            int option = keyboard.inputInt("\n- Enter an option: ");
-            switch (option) {
-                case 1 -> {
-                    // name
-                    String name = keyboard.inputText("\n- Enter a new employee name: ");
-                    hotel.findEmployeeByNumber(employeeNumber).setName(name);
-                }
-                case 2 -> {
-                    // email
-                    String email = keyboard.inputText("\n- Enter a new employee email: ");
-                    hotel.findEmployeeByNumber(employeeNumber).setEmail(email);
-                }
-                case 3 -> {
-                    // phone number
-                    long phoneNumber = keyboard.inputLong("\n- Enter a new employee phone number ");
-                    hotel.findEmployeeByNumber(employeeNumber).setPhoneNumber(phoneNumber);
-                }
-                case 4 -> {
-                    // ID
-                    long id = keyboard.inputLong("\n- Enter a new employee ID: ");
-                    hotel.findEmployeeByNumber(employeeNumber).setId(id);
-                }
-                case 5 -> {
-                    // position
-                    String position = keyboard.inputText("\n- Enter a new employee position: ");
-                    hotel.findEmployeeByNumber(employeeNumber).setPosition(position);
-                }
-                case 6 -> {
-                    // salary
-                    double salary = keyboard.inputDouble("\n- Enter a new employee salary: ");
-                    hotel.findEmployeeByNumber(employeeNumber).setSalary(salary);
-                }
-                case 7 -> {
-                    // exit
-                    keyboard.writeLine("\n- Leaving...");
-                }
-                default -> {
-                    keyboard.writeLine("\n- Enter a valid option.");
-                }
-            }
+        if (hotel.getEmployeeList().isEmpty()) {
+            keyboard.writeLine("- - - - - - - - -\nNo employees found.\n - - - - - - - - -");
         } else {
-            keyboard.writeLine("\n- Employee doesn't exist. Try again.");
+            int employeeNumber = keyboard.inputInt("\n- Enter the Employee number that you want to change: ");
+            if (employeeNumber > 0) {
+                showChangeEmployeeInfoMenu();
+                int option = keyboard.inputInt("\n- Enter an option: ");
+                switch (option) {
+                    case 1 -> {
+                        // name
+                        String name = keyboard.inputText("\n- Enter a new employee name: ");
+                        hotel.findEmployeeByNumber(employeeNumber).setName(name);
+                    }
+                    case 2 -> {
+                        // email
+                        String email = keyboard.inputText("\n- Enter a new employee email: ");
+                        hotel.findEmployeeByNumber(employeeNumber).setEmail(email);
+                    }
+                    case 3 -> {
+                        // phone number
+                        long phoneNumber = keyboard.inputLong("\n- Enter a new employee phone number ");
+                        hotel.findEmployeeByNumber(employeeNumber).setPhoneNumber(phoneNumber);
+                    }
+                    case 4 -> {
+                        // ID
+                        long id = keyboard.inputLong("\n- Enter a new employee ID: ");
+                        hotel.findEmployeeByNumber(employeeNumber).setId(id);
+                    }
+                    case 5 -> {
+                        // position
+                        String position = keyboard.inputText("\n- Enter a new employee position: ");
+                        hotel.findEmployeeByNumber(employeeNumber).setPosition(position);
+                    }
+                    case 6 -> {
+                        // salary
+                        double salary = keyboard.inputDouble("\n- Enter a new employee salary: ");
+                        hotel.findEmployeeByNumber(employeeNumber).setSalary(salary);
+                    }
+                    case 7 -> {
+                        // exit
+                        keyboard.writeLine("\n- Leaving...");
+                    }
+                    default -> {
+                        keyboard.writeLine("\n- Enter a valid option.");
+                    }
+                }
+            } else {
+                keyboard.writeLine("\n- Employee doesn't exist. Try again.");
+            }
         }
 
     }
@@ -657,7 +694,7 @@ public class Main {
                 int day = keyboard.inputInt("\n- Enter reservation initial day: ");
                 int month = keyboard.inputInt("\n- Enter reservation initial month: ");
                 int year = keyboard.inputInt("\n- Enter reservation year: ");
-              
+
                 if (dateValidation(day, month, year) == true) {
                     initialDate = day + "/" + month + "/" + year;
                     condition = false;
@@ -702,7 +739,14 @@ public class Main {
 
     private static void addRoom() {
         keyboard.writeLine("\n              ADD ROOM");
+
         int roomNumber = keyboard.inputInt("\n- Room number: ");
+        for (Room room : hotel.getRoomList()) {
+            while (roomNumber == room.getRoomNum()) {
+                roomNumber = keyboard.inputInt("\n- Room number already exists.\n- Room number: ");
+            }
+        }
+
         int beds = keyboard.inputInt("\n- Cuantity of beds: ");
         int baths = keyboard.inputInt("\n- Cuantity of baths: ");
         String type = keyboard.inputText("\n- Room type (Basic/Medium/Suit): ");
@@ -711,12 +755,76 @@ public class Main {
     }
 
     private static void addEmployee() {
+        boolean catcher = true;
         keyboard.writeLine("\n              ADD EMPLOYEE");
+
         String name = keyboard.inputText("\n- Enter employee's name: ");
+
+        while (catcher) {
+            try {
+                Double.parseDouble(name);
+                name = keyboard.inputText("Error. Name can't be numbers.\n- Enter employee's name: ");
+            } catch (NumberFormatException e) {
+                catcher = false;
+            }
+        }
+
+        for (Employee employee : hotel.getEmployeeList()) {
+            while (name.equals(employee.getName())) {
+                name = keyboard.inputText("Employee already registered.\n- Enter employee's name: ");
+            }
+        }
+
+        
+        catcher = true;
+
         String email = keyboard.inputText("\n- Enter employee's email adress: ");
+
+        while (catcher) {
+            try {
+                Double.parseDouble(email);
+                email = keyboard.inputText("Error. Email can't be numbers.\n- Enter employee's name: ");
+            } catch (NumberFormatException e) {
+                catcher = false;
+            }
+        }
+
+        catcher = true;
+
+        for (Employee employee : hotel.getEmployeeList()) {
+            while (email.equals(employee.getEmail())) {
+                email = keyboard.inputText("Employee already registered.\n- Enter employee's email: ");
+            }
+        }
+
         long phoneNumber = keyboard.inputLong("\n- Enter employee's phone number: ");
-        long id = keyboard.inputLong("\n- Enter employee's id:");
+        for (Employee employee : hotel.getEmployeeList()) {
+            while (phoneNumber == employee.getId()) {
+                phoneNumber = keyboard
+                        .inputLong("Employee phone number already registered.\n- Enter employee's phone number: ");
+
+            }
+        }
+
+        long id = keyboard.inputLong("\n- Enter employee's ID:");
+        for (Employee employee : hotel.getEmployeeList()) {
+            while (id == employee.getId()) {
+                id = keyboard.inputLong("Employee's ID already used.\n- Enter employee's ID: ");
+            }
+
+        }
+
         String position = keyboard.inputText("\n- Enter employee's position: ");
+        
+        while (catcher) {
+            try {
+                Double.parseDouble(position);
+                position = keyboard.inputText("Error. Position can't be numbers.\n- Enter employee's position: ");
+            } catch (NumberFormatException e) {
+                catcher = false;
+            }
+        }
+        
         double salary = keyboard.inputDouble("\n- Enter employee's salary: ");
         hotel.addEmployee(new Employee(name, email, phoneNumber, id, position, salary));
         keyboard.writeLine("\n- Employee added succesfully.");
