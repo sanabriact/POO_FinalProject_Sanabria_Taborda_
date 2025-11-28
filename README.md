@@ -12,6 +12,14 @@ Además, la aplicación implementa el almacenamiento de datos en archivos extern
 
 ### Instrucciones para ejecutar el programa
 El programa es ejecutable a través de la consola virtual. Cuando se inicia el programa, se presenta a través de esta un menú con 3 opciones principales: 
-<mark>1. Información del Hotel.</mark>
+#### 1. Información del Hotel.
+Esta sección del programa permite al operador que lo use configuar el hotel: Añadir habitaciones al hotel, Configurar hotel o cambiar información. 
+En configurar hotel, se le asigna un nombre, correo, número telefónico y dirección al hotel (Equivalente a los datos reales del establecimiento)
+#### 2. Menú de administrador.
+Esta sección del sistema es la más importante. Abre otro menú, en donde se presentan opciones que permiten ir al manejo interno de 3 aspectos: Reservas, Registros y Empleados. 
 
+En reservas, se despliega un menú en donde se crean, desactivan o modifican reservas. Por último, se muestran listas de reservas activas y habitaciones.
+En la sección Registros, se pueden mostrar el registro histórico de reservas (activas y consumadas) o de forma individual para una búsqueda más precisa y rápida, así como también de huéspedes.
+
+Por último, en Empleados permite administrar toda la información acerca del personal y la lista de este. Añadir, cambiar información de , buscar o despedir empleado, además de mostrar la lista de los mismos son las funciones que esta sección realiza.
 
