@@ -187,7 +187,7 @@ public class Main {
                                 }
                             }
                             case 2 -> {
-                                // Reservation record
+                                // RECORD
                                 boolean condition4 = true;
                                 while (condition4) {
                                     showRecordMenu();
@@ -200,12 +200,15 @@ public class Main {
                                             showGuestRecord();
                                         }
                                         case 3 -> {
-                                            searchReservationInRecord();
+                                            showEmployeeRecord();
                                         }
                                         case 4 -> {
-                                            searchGuestInRecord();
+                                            searchReservationInRecord();
                                         }
                                         case 5 -> {
+                                            searchGuestInRecord();
+                                        }
+                                        case 6 -> {
                                             keyboard.writeLine("\n- Leaving...\n");
                                             condition4 = false;
                                         }
@@ -228,7 +231,7 @@ public class Main {
                                         }
                                         case 2 -> {
                                             // Show employee list
-                                            showEmployeeList();
+                                            showActiveEmployees();
                                         }
                                         case 3 -> {
                                             // Change employee info
@@ -287,9 +290,11 @@ public class Main {
         saveToCsvFile("Employees.csv", employeeContent);
     }
 
-    /*SHOW MENU METHODS:
-    They show menu options, in addition to printing some hotel class lists on the screen 
-    */
+    /*
+     * SHOW MENU METHODS:
+     * They show menu options, in addition to printing some hotel class lists on the
+     * screen
+     */
 
     private static void showHotelMenu() {
         keyboard.writeLine("\n- - - - - - - - - - - - - - - - HOTEL " + hotel.getHotelName().toUpperCase()
@@ -338,9 +343,10 @@ public class Main {
     private static void showRecordMenu() {
         keyboard.writeLine("\n(1) Show reservation record."
                 + "\n(2) Show guest record."
-                + "\n(3) Search reservation in record."
-                + "\n(4) Search guest in guest record."
-                + "\n(5) Go back.\n");
+                + "\n(3) Show employee record."
+                + "\n(4) Search reservation in record."
+                + "\n(5) Search guest in guest record."
+                + "\n(6) Go back.\n");
     }
 
     private static void showChangeReservationMenu() {
@@ -377,15 +383,16 @@ public class Main {
                 + "\n(6) Change salary."
                 + "\n(7) Go back.\n");
     }
-    //------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
 
+    //The method showHotelInfo() shows on the screen the attributes of hotel (name, adress, email, phoneNumber)
     private static void showHotelInfo() {
         keyboard.writeLine(hotel.toString());
     }
-    
-    //The method showActiveReservations() shows the reservations that are actives at the moment
+
+    // The method showActiveReservations() shows the reservations that are actives at the moment
     private static void showActiveReservations() {
-        
+
         if (hotel.getReservationList().isEmpty()) {
             keyboard.writeLine("- - - - - - - - -\nNo active reservations found.\n - - - - - - - - -");
         } else {
@@ -398,7 +405,7 @@ public class Main {
         }
     }
 
-    //The method showAvailableRooms() print the rooms that are available at the time of a reservation
+    // The method showAvailableRooms() print the rooms that are available at the time of a reservation
     private static void showAvailableRooms() {
 
         if (hotel.getAvailableRooms().isEmpty()) {
@@ -412,7 +419,7 @@ public class Main {
         }
     }
 
-    //The method showReservationRecord() shows the entire historical reservation record of the hotel
+    // The method showReservationRecord() shows the entire historical reservation record of the hotel
     private static void showReservationRecord() {
 
         if (hotel.getReservationList().isEmpty()) {
@@ -427,7 +434,7 @@ public class Main {
 
     }
 
-    //The method showGuestRecord() shows the entire historical guest record of the hotel
+    // The method showGuestRecord() shows the entire historical guest record of the hotel
     private static void showGuestRecord() {
 
         if (hotel.getGuestList().isEmpty()) {
@@ -440,23 +447,37 @@ public class Main {
             keyboard.writeLine("");
         }
     }
-    
-    //The method showEmployeeList() print the entire list of hotel employees on the screen
-    private static void showEmployeeList() {
+
+    // The method showEmployeeList() print the entire record of hotel employees on the screen
+    private static void showEmployeeRecord() {
 
         if (hotel.getEmployeeList().isEmpty()) {
             keyboard.writeLine("- - - - - - - - -\nNo employees found.\n - - - - - - - - -");
         } else {
-            keyboard.writeLine("\n- - - - - - - - EMPLOYEE LIST - - - - - - - -\n");
+            keyboard.writeLine("\n- - - - - - - - EMPLOYEE RECORD - - - - - - - -\n");
             for (Employee employee : hotel.getEmployeeList()) {
                 keyboard.writeLine(employee.toString());
             }
         }
     }
-    
-    //The method showRoomList() print the entire list of hotel rooms on the screen
+
+    //The method showActiveEmployees() shows on screen the active employees of the hotel 
+    private static void showActiveEmployees() {
+        if (hotel.getEmployeeList().isEmpty()) {
+            keyboard.writeLine("- - - - - - - - -\nNo employees found.\n - - - - - - - - -");
+        } else {
+            keyboard.writeLine("\n- - - - - - - - ACTIVE EMPLOYEES - - - - - - - -\n");
+            for (Employee employee : hotel.getEmployeeList()) {
+                if (employee.getActive() == true) {
+                    keyboard.writeLine(employee.toString());
+                }
+            }
+        }
+    }
+
+    // The method showRoomList() print the entire list of hotel rooms on the screen
     private static void showRoomList() {
-        
+
         if (hotel.getRoomList().isEmpty()) {
             keyboard.writeLine("- - - - - - - - -\nNo rooms found.\n - - - - - - - - -");
         }
@@ -467,10 +488,10 @@ public class Main {
 
         keyboard.writeLine("");
     }
-    
-    //------------------------------------------------------------------------------------------------
-    
-    //The method configHitel() configures the hotel, sending it its attributes through setters 
+
+    // ------------------------------------------------------------------------------------------------
+
+    // The method configHitel() configures the hotel, sending it its attributes through setters
     private static void configHotel() {
         boolean catcher = true;
         keyboard.writeLine("\n              CONFIGURE HOTEL");
@@ -534,7 +555,7 @@ public class Main {
         hotel.setHotelPhoneNum(phoneNumber);
     }
 
-    //The method changeInfo() is used to change hotel attributes like name, adress, phoneNumber and email
+    // The method changeInfo() is used to change hotel attributes like name, adress, phoneNumber and email
     private static void changeInfo() {
         keyboard.writeLine("\n- - - - - - - - - - - - - - - - - - - - - - -");
         showChangeHotelInfoMenu();
@@ -549,8 +570,8 @@ public class Main {
             }
         }
     }
-    
-    //The method changeRoomInfo() is used to change rooms attributes like number, cuantity of beds and baths and price
+
+    // The method changeRoomInfo() is used to change rooms attributes like number, cuantity of beds and baths and price
     private static void changeRoomInfo() {
         showRoomList();
         int option = keyboard.inputInt("\n- Enter room number for changing its info: ");
@@ -568,19 +589,19 @@ public class Main {
                         room.setRoomNum(roomNumber);
                     }
                     case 2 -> {
-                        int beds = keyboard.inputInt("\n- Enter new cuantity of beds for room " + room.getRoomBeds());
+                        int beds = keyboard.inputInt("\n- Enter new cuantity of beds for room " + room.getRoomNum());
                         room.setRoomBeds(beds);
                     }
                     case 3 -> {
-                        int baths = keyboard.inputInt("\n- Enter new cuantity of beds for room " + room.getRoomBaths());
+                        int baths = keyboard.inputInt("\n- Enter new cuantity of beds for room " + room.getRoomNum());
                         room.setRoomBaths(baths);
                     }
                     case 4 -> {
-                        String roomType = keyboard.inputText("\n- Enter new type for room " + room.getRoomType());
+                        String roomType = keyboard.inputText("\n- Enter new type for room " + room.getRoomNum());
                         room.setRoomType(roomType);
                     }
                     case 5 -> {
-                        double price = keyboard.inputDouble("\n- Enter new price for room " + room.getPrice());
+                        double price = keyboard.inputDouble("\n- Enter new price for room " + room.getRoomNum());
                         room.setPrice(price);
                     }
                     case 6 -> {
@@ -602,7 +623,7 @@ public class Main {
 
     }
 
-    //The method
+    // The method changeEmployeeInfo() is useful to change employee attributes like name, salary and others
     private static void changeEmployeeInfo() {
         if (hotel.getEmployeeList().isEmpty()) {
             keyboard.writeLine("- - - - - - - - -\nNo employees found.\n - - - - - - - - -");
@@ -654,10 +675,10 @@ public class Main {
                 keyboard.writeLine("\n- Employee doesn't exist. Try again.");
             }
         }
-        
+
     }
-    
-    //The method
+
+    // The method changeReservationData() is useful to change employee attributes like room,  and others
     private static void changeReservationData() {
 
         int reservationNumber = keyboard
@@ -738,13 +759,13 @@ public class Main {
                     keyboard.writeLine("\n- Invalid option. Try again.");
                 }
             }
-        } else{
+        } else {
             keyboard.writeLine("\n- The reservation doesn't exist, please try again");
         }
 
     }
-    
-    //The method
+
+    // The method changeHotelInfo() is useful to change employee attributes like name, adress, phone number and email
     private static void changeHotelInfo() {
         keyboard.writeLine("\n- - - - - - - - - - - - - - - - - -");
         showHotelInfo();
@@ -755,7 +776,7 @@ public class Main {
 
         switch (option) {
             case 1 -> {
-                String name=keyboard.inputText("\n- Enter new hotel name: ");
+                String name = keyboard.inputText("\n- Enter new hotel name: ");
                 hotel.setHotelName(name);
             }
 
@@ -790,12 +811,11 @@ public class Main {
             keyboard.writeLine("\n- No info was changed.");
         }
     }
-    
-    //------------------------------------------------------------------------------------------------
-    
-    //The method addReservation() is used to create a reservation and add it to hotel's reservationList
-    private static void addReservation() {
 
+    // ------------------------------------------------------------------------------------------------
+
+    // The method addReservation() is used to create a reservation and add it to hotel's reservationList
+    private static void addReservation() {
         if (hotel.getAvailableRooms().isEmpty()) {
             keyboard.writeLine(
                     "- - - - - - - - -\nNo available room at this time. Reservation can't be done.\n - - - - - - - - -");
@@ -856,7 +876,7 @@ public class Main {
         }
     }
 
-    //The method
+    // The method addRoom() is used to create a room and add it to hotel's roomList
     private static void addRoom() {
         keyboard.writeLine("\n              ADD ROOM");
 
@@ -875,7 +895,8 @@ public class Main {
         keyboard.writeLine("Room added succesfully.\n");
     }
 
-    //The method
+    // The method addEmployee() is used to create a employee and add it to hotel's
+    // employeeList
     private static void addEmployee() {
         boolean catcher = true;
         keyboard.writeLine("\n              ADD EMPLOYEE");
@@ -951,7 +972,7 @@ public class Main {
         keyboard.writeLine("\n- Employee added succesfully.");
     }
 
-    //The method
+    // The method is useful to disable a employee because he has beeen fired
     private static void dismissEmployee() {
         int employeeNumber = keyboard.inputInt("\n- Enter the employee number that you want to dismiss: ");
         if (employeeNumber > 0 && employeeNumber <= hotel.getEmployeeList().size()) {
@@ -961,7 +982,8 @@ public class Main {
             keyboard.writeLine("\n- The employee doesn't exist, please try again.");
         }
     }
-    //The method disableReservation() it is used to disable a reservation that has already ended
+
+    // The method disableReservation() it is used to disable a reservation that has already ended
     private static void disableReservation() {
         boolean condition = false;
         long id = keyboard.inputLong("\n- Enter reservation number: ");
@@ -971,15 +993,15 @@ public class Main {
                 keyboard.writeLine("\n- The reservation has been successfully disabled.");
                 condition = true;
             }
-            if (!condition) {
-                keyboard.writeLine("\n- The reservation doesn't exist. Try again");
-            }
+        }
+        if (!condition) {
+            keyboard.writeLine("\n- The reservation doesn't exist. Try again");
         }
     }
-    
-    //------------------------------------------------------------------------------------------------
 
-    //The method
+    // ------------------------------------------------------------------------------------------------
+
+    // The method searchReservationInRecord() print a reservation from record which is searched by the reservation number assigned to it
     private static void searchReservationInRecord() {
 
         if (hotel.getReservationList().isEmpty()) {
@@ -997,7 +1019,7 @@ public class Main {
         }
     }
 
-    //The method
+    // The method searchGuestInRecord() print a guest from record which is searched by guest's id
     private static void searchGuestInRecord() {
 
         if (hotel.getGuestList().isEmpty()) {
@@ -1015,7 +1037,7 @@ public class Main {
         }
     }
 
-    //The method
+    // The method searchEmployeeByNumber() print an employee from record which is searched by the employee number assigned to it
     private static void searchEmployeeByNumber() {
 
         if (hotel.getEmployeeList().isEmpty()) {
@@ -1032,9 +1054,9 @@ public class Main {
             }
         }
     }
-    //------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
 
-    //The method
+    // The method dateValidation() does a validation of a date and return true if is correct or false if the date doesn't exist
     private static boolean dateValidation(int day, int month, int year) {
         if ((year > 2025 || year <= 9999) && (month > 0 || month < 13) && (day > 0 && day < 32)) {
             if (month == 2 && day < 29) {
@@ -1051,7 +1073,7 @@ public class Main {
         return false;
     }
 
-    //The method
+    // The method loadHotel() upload the hotel information that has been previously saved
     private static void loadHotel() {
         var loaded = HotelStorage.load(FILE_NAME);
         if (loaded != null) {
@@ -1060,12 +1082,12 @@ public class Main {
         }
     }
 
-    //The method
+    // The method saveHotel() saves changes that have been made during program runtime
     private static void saveHotel() {
         HotelStorage.save(hotel, FILE_NAME);
     }
 
-    //The method
+    // The method saveToCsvFile() saves the information sent to you as an argument to a csv file
     private static void saveToCsvFile(String file_name, String content) {
         HotelStorage.save(file_name, content);
     }
