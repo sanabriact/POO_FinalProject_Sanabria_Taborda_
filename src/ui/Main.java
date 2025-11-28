@@ -5,16 +5,19 @@ import domain.*;
 import utils.*;
 
 public class Main {
-    private static final String FILE_NAME = "Hotel.dat";
-    private static IOConsoleUser keyboard = new IOConsoleUser();
 
-    private static Hotel hotel = new Hotel();
+    private static final String FILE_NAME = "Hotel.dat"; // File used to save serialized hotel data
+    private static IOConsoleUser keyboard = new IOConsoleUser(); // Console input/output handler
+
+    private static Hotel hotel = new Hotel(); // Main hotel object containing all data
 
     public static void main(String[] args) {
 
+        // CSV encoder for Room objects
         CSVEncoder<Room> roomEncoder = new CSVEncoder<Room>() {
             @Override
             public String[] getFieldNames() {
+                // Column headers for the CSV
                 return new String[] {
                         "roomNumber", "roomType", "price", "beds", "baths",
                 };
@@ -22,6 +25,7 @@ public class Main {
 
             @Override
             public String[] getValues(Room room) {
+                // Extract room attributes into string array
                 return new String[] {
                         String.valueOf(room.getRoomNum()), room.getRoomType(), String.valueOf(room.getPrice()),
                         String.valueOf(room.getRoomBeds()), String.valueOf(room.getRoomBaths())
@@ -29,9 +33,11 @@ public class Main {
             }
         };
 
+        // CSV encoder for Reservation objects
         CSVEncoder<Reservation> reservationEncoder = new CSVEncoder<Reservation>() {
             @Override
             public String[] getFieldNames() {
+                // Column headers for reservations
                 return new String[] {
                         "reservationNumber", "roomNumber", "roomType", "guestName", "status", "initialDate", "finalDate"
                 };
@@ -39,6 +45,7 @@ public class Main {
 
             @Override
             public String[] getValues(Reservation reservation) {
+                // Extract reservation data into string array
                 return new String[] {
                         String.valueOf(reservation.getReservationNumber()),
                         String.valueOf(reservation.getRoom().getRoomNum()), reservation.getRoom().getRoomType(),
@@ -48,6 +55,7 @@ public class Main {
             }
         };
 
+        // CSV encoder for Guest objects
         CSVEncoder<Guest> guestEncoder = new CSVEncoder<Guest>() {
             @Override
             public String[] getFieldNames() {
@@ -65,6 +73,7 @@ public class Main {
             }
         };
 
+        // CSV encoder for Employee objects
         CSVEncoder<Employee> employeeEncoder = new CSVEncoder<Employee>() {
             @Override
             public String[] getFieldNames() {
@@ -84,221 +93,176 @@ public class Main {
             }
         };
 
-        /* PARA TESTEAR */ hotel.addRoom(new Room(101, 2, 1, "basic", 90));
-        /* PARA TESTEAR */ hotel.addRoom(new Room(102, 2, 1, "medium", 90));
-
-        /* PARA TESTEAR */ hotel.addRoom(new Room(103, 2, 1, "suit", 90));
-        /* PARA TESTEAR */ hotel.addRoom(new Room(104, 2, 1, "medium", 90));
-        /* PARA TESTEAR */ hotel.addRoom(new Room(105, 2, 1, "medium", 90));
-        /* PARA TESTEAR */ hotel.addRoom(new Room(201, 2, 1, "medium", 70));
-        /* PARA TESTEAR */ hotel.addRoom(new Room(202, 2, 1, "medium", 90));
-        /* PARA TESTEAR */ hotel.addRoom(new Room(203, 2, 1, "medium", 60));
-        /* PARA TESTEAR */ hotel.addRoom(new Room(204, 2, 1, "medium", 89));
-
-        boolean menu = true;
+        boolean menu = true; // Main menu loop control
         int option;
 
-        loadHotel();
+        loadHotel(); // Load serialized hotel data at the start
 
         while (menu) {
-            // HOTEL MENU
+            // Display main hotel menu
             showHotelMenu();
             option = keyboard.inputInt("\n- Enter an option: ");
 
             switch (option) {
-                case 1 -> {
+
+                case 1 -> {  
+                    // HOTEL DATA CONFIGURATION MENU
                     boolean condition = true;
                     while (condition) {
                         showHotelDataMenu();
                         option = keyboard.inputInt("\n- Enter a option: ");
                         switch (option) {
-                            case 1 -> {
+                            case 1 -> { // Change hotel info
                                 configHotel();
                                 saveHotel();
                             }
 
-                            case 2 -> {
+                            case 2 -> { // Add new room
                                 addRoom();
                                 saveHotel();
                             }
 
-                            case 3 -> {
+                            case 3 -> { // Change room/hotel info
                                 changeInfo();
                                 saveHotel();
                             }
 
-                            case 4 -> {
+                            case 4 -> { // Exit to main menu
                                 keyboard.writeLine("\n Leaving...\n");
                                 condition = false;
                             }
-                            default -> {
-                                keyboard.writeLine("\n- Invalid option. Try again.");
-                            }
+
+                            default -> keyboard.writeLine("\n- Invalid option. Try again.");
                         }
-
                     }
-
                 }
+
                 case 2 -> {
-                    // Administrator menu
+                    // ADMINISTRATOR MENU
                     boolean condition2 = true;
                     while (condition2) {
                         showAdminMenu();
                         option = keyboard.inputInt("\n- Enter an option: ");
                         switch (option) {
-                            case 1 -> {
-                                // Reservations
+
+                            case 1 -> { 
+                                // RESERVATION MANAGEMENT
                                 boolean condition3 = true;
                                 while (condition3) {
                                     showReservationMenu();
                                     option = keyboard.inputInt("\n- Enter an option: ");
                                     switch (option) {
-                                        case 1 -> {
-                                            // Add reservation
+                                        case 1 -> { // Add reservation
                                             addReservation();
                                             saveHotel();
                                         }
-                                        case 2 -> {
-                                            // Show active reservations
-                                            showActiveReservations();
-                                        }
-                                        case 3 -> {
-                                            // Show available rooms
-                                            showAvailableRooms();
-                                        }
-                                        case 4 -> {
-                                            // Disable reservation
+                                        case 2 -> showActiveReservations(); // Show active reservations
+                                        case 3 -> showAvailableRooms();     // Show available rooms
+                                        case 4 -> { // Disable reservation
                                             disableReservation();
                                             saveHotel();
                                         }
-                                        case 5 -> {
-                                            // Change reservation data
+                                        case 5 -> { // Modify reservation
                                             changeReservationData();
                                             saveHotel();
                                         }
-                                        case 6 -> {
+                                        case 6 -> { // Exit
                                             keyboard.writeLine("\n- Leaving...\n");
                                             condition3 = false;
                                         }
-                                        default -> {
-                                            keyboard.writeLine("\n- Invalid option. Try again.");
-                                        }
+                                        default -> keyboard.writeLine("\n- Invalid option. Try again.");
                                     }
                                 }
                             }
+
                             case 2 -> {
-                                // RECORD
+                                // HISTORICAL RECORD SECTION
                                 boolean condition4 = true;
                                 while (condition4) {
                                     showRecordMenu();
                                     option = keyboard.inputInt("\n- Enter an option: ");
                                     switch (option) {
-                                        case 1 -> {
-                                            showReservationRecord();
-                                        }
-                                        case 2 -> {
-                                            showGuestRecord();
-                                        }
-                                        case 3 -> {
-                                            showEmployeeRecord();
-                                        }
-                                        case 4 -> {
-                                            searchReservationInRecord();
-                                        }
-                                        case 5 -> {
-                                            searchGuestInRecord();
-                                        }
+                                        case 1 -> showReservationRecord();
+                                        case 2 -> showGuestRecord();
+                                        case 3 -> showEmployeeRecord();
+                                        case 4 -> searchReservationInRecord();
+                                        case 5 -> searchGuestInRecord();
                                         case 6 -> {
                                             keyboard.writeLine("\n- Leaving...\n");
                                             condition4 = false;
                                         }
-                                        default -> {
-                                            keyboard.writeLine("\n- Invalid option. Try again.");
-                                        }
+                                        default -> keyboard.writeLine("\n- Invalid option. Try again.");
                                     }
                                 }
                             }
-                            case 3 -> {// Employee Menu
+
+                            case 3 -> {
+                                // EMPLOYEE MANAGEMENT
                                 boolean condition5 = true;
                                 while (condition5) {
                                     showEmployeeMenu();
                                     option = keyboard.inputInt("\n- Enter an option: ");
                                     switch (option) {
-                                        case 1 -> {
-                                            // Add employee
+                                        case 1 -> { // Add employee
                                             addEmployee();
                                             saveHotel();
                                         }
-                                        case 2 -> {
-                                            // Show employee list
-                                            showActiveEmployees();
-                                        }
-                                        case 3 -> {
-                                            // Change employee info
+                                        case 2 -> showActiveEmployees(); // Show employees
+                                        case 3 -> { // Modify employee info
                                             changeEmployeeInfo();
                                             saveHotel();
                                         }
-                                        case 4 -> {
-                                            // search employee
-                                            searchEmployeeByNumber();
-                                        }
-                                        case 5 -> {
-                                            // Dismiss employee
+                                        case 4 -> searchEmployeeByNumber(); // Search employee
+                                        case 5 -> { // Dismiss employee
                                             dismissEmployee();
                                             saveHotel();
                                         }
-                                        case 6 -> {
-                                            // Exit
+                                        case 6 -> { // Exit
                                             keyboard.writeLine("\n- Leaving...\n");
                                             condition5 = false;
                                         }
-                                        default -> {
-                                            keyboard.writeLine("\n- Invalid option. Try again.");
-                                        }
+                                        default -> keyboard.writeLine("\n- Invalid option. Try again.");
                                     }
                                 }
                             }
-                            case 4 -> {
+
+                            case 4 -> { // Exit admin menu
                                 keyboard.writeLine("\n- Leaving...");
                                 condition2 = false;
                             }
-                            default -> {
-                                keyboard.writeLine("\n- Invalid option. Try again.");
-                            }
+
+                            default -> keyboard.writeLine("\n- Invalid option. Try again.");
                         }
                     }
                 }
-                case 3 -> {
-                    menu = false;
-                }
 
-                default -> {
-                    keyboard.writeLine("\n- Invalid option. Try again.");
-                }
+                case 3 -> menu = false; // Exit program
+
+                default -> keyboard.writeLine("\n- Invalid option. Try again.");
             }
-
         }
 
+        // Save all data and export CSV files when program ends
         saveHotel();
+
         String roomContent = roomEncoder.encode(hotel.getRoomList());
         saveToCsvFile("Rooms.csv", roomContent);
+
         String resContent = reservationEncoder.encode(hotel.getReservationList());
         saveToCsvFile("Reservations.csv", resContent);
+
         String guestContent = guestEncoder.encode(hotel.getGuestList());
         saveToCsvFile("Guests.csv", guestContent);
+
         String employeeContent = employeeEncoder.encode(hotel.getEmployeeList());
         saveToCsvFile("Employees.csv", employeeContent);
     }
 
-    /*
-     * SHOW MENU METHODS:
-     * They show menu options, in addition to printing some hotel class lists on the
-     * screen
-     */
-
+    /*SHOW MENU METHODS:
+     * They show menu options, in addition to printing some hotel class lists on the screen*/
     private static void showHotelMenu() {
         keyboard.writeLine("\n- - - - - - - - - - - - - - - - HOTEL " + hotel.getHotelName().toUpperCase()
-                + " MENU - - - - - - - - - - - - - - - -"
+        + " MENU - - - - - - - - - - - - - - - -"
                 + "\n(1) Hotel Data."
                 + "\n(2) Administrator Menu."
                 + "\n(3) Save and exit.\n");
@@ -348,7 +312,7 @@ public class Main {
                 + "\n(5) Search guest in guest record."
                 + "\n(6) Go back.\n");
     }
-
+    
     private static void showChangeReservationMenu() {
         keyboard.writeLine("\n(1) Change guest name."
                 + "\n(2) Change guest email."
@@ -522,13 +486,13 @@ public class Main {
                 catcher = false;
             }
         }
-
+        
         while (adress.equals(hotel.getHotelAdress())) {
             adress = keyboard.inputText("\nAdress entered is the actual hotel adress.\n- Enter another adress: ");
         }
 
         String email = keyboard.inputText("\n- Hotel email: ");
-
+        
         catcher = true;
         while (catcher) {
             try {
@@ -547,7 +511,7 @@ public class Main {
         while (phoneNumber == hotel.getHotelPhoneNum()) {
             phoneNumber = keyboard.inputLong(
                     "\nPhone number entered is the actual hotel phone number.\n- Enter another phone number: ");
-        }
+                }
 
         hotel.setHotelName(name);
         hotel.setHotelAdress(adress);
@@ -784,7 +748,7 @@ public class Main {
                 String adress = keyboard.inputText("\n- Enter new hotel adress: ");
                 hotel.setHotelAdress(adress);
             }
-
+            
             case 3 -> {
                 String email = keyboard.inputText("\n- Enter new hotel email: ");
                 hotel.setHotelEmail(email);
@@ -840,7 +804,7 @@ public class Main {
                 } else {
                     keyboard.writeLine("\n- The date that you entered doesn't exist.");
                 }
-
+                
             } while (condition);
 
             condition = true;
@@ -875,7 +839,7 @@ public class Main {
             } while (!condition);
         }
     }
-
+    
     // The method addRoom() is used to create a room and add it to hotel's roomList
     private static void addRoom() {
         keyboard.writeLine("\n              ADD ROOM");
@@ -938,22 +902,22 @@ public class Main {
                 email = keyboard.inputText("Employee already registered.\n- Enter employee's email: ");
             }
         }
-
+        
         long phoneNumber = keyboard.inputLong("\n- Enter employee's phone number: ");
         for (Employee employee : hotel.getEmployeeList()) {
             while (phoneNumber == employee.getId()) {
                 phoneNumber = keyboard
                         .inputLong("Employee phone number already registered.\n- Enter employee's phone number: ");
-
-            }
+                        
+                    }
         }
-
+        
         long id = keyboard.inputLong("\n- Enter employee's ID:");
         for (Employee employee : hotel.getEmployeeList()) {
             while (id == employee.getId()) {
                 id = keyboard.inputLong("Employee's ID already used.\n- Enter employee's ID: ");
             }
-
+            
         }
 
         String position = keyboard.inputText("\n- Enter employee's position: ");
