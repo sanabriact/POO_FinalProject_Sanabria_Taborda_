@@ -2,22 +2,23 @@ package utils;
 
 import java.util.Scanner;
 
-public class IOConsoleUser implements IOUser{
-    private static Scanner input = new Scanner(System.in);
+public class IOConsoleUser implements IOUser {
+
+    private static Scanner input = new Scanner(System.in); // shared scanner for console input
 
     @Override
-    public String inputText(String message){
+    public String inputText(String message) { // reads text input
         System.out.println(message);
         return input.nextLine();
     }
 
     @Override
-    public void writeLine(String message){
+    public void writeLine(String message) { // prints a line to console
         System.out.println(message);
     }
 
     @Override
-    public int inputInt(String message){
+    public int inputInt(String message) { // reads an int with validation
         while (true) {
             try {
                 return Integer.parseInt(inputText(message));
@@ -25,11 +26,10 @@ public class IOConsoleUser implements IOUser{
                 writeLine("\n -You must enter an integer number.");
             }
         }
-
     }
 
     @Override
-    public long inputLong(String message){
+    public long inputLong(String message) { // reads a long with validation
         while (true) {
             try {
                 return Long.parseLong(inputText(message));
@@ -40,7 +40,7 @@ public class IOConsoleUser implements IOUser{
     }
 
     @Override
-    public float inputFloat(String message){
+    public float inputFloat(String message) { // reads a float with validation
         while (true) {
             try {
                 return Float.parseFloat(inputText(message));
@@ -51,7 +51,7 @@ public class IOConsoleUser implements IOUser{
     }
 
     @Override
-    public double inputDouble(String message){
+    public double inputDouble(String message) { // reads a double with validation
         while (true) {
             try {
                 return Double.parseDouble(inputText(message));
@@ -60,8 +60,4 @@ public class IOConsoleUser implements IOUser{
             }
         }
     }
-
-
-
-
 }
