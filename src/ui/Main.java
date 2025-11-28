@@ -84,16 +84,16 @@ public class Main {
             }
         };
 
-        /* PARA TESTEAR */ hotel.addRoom(new Room(101, 2, 1, "basic"));
-        /* PARA TESTEAR */ hotel.addRoom(new Room(102, 2, 1, "medium"));
+        /* PARA TESTEAR */ hotel.addRoom(new Room(101, 2, 1, "basic", 90));
+        /* PARA TESTEAR */ hotel.addRoom(new Room(102, 2, 1, "medium", 90));
 
-        /* PARA TESTEAR */ hotel.addRoom(new Room(103, 2, 1, "suit"));
-        /* PARA TESTEAR */ hotel.addRoom(new Room(104, 2, 1, "medium"));
-        /* PARA TESTEAR */ hotel.addRoom(new Room(105, 2, 1, "medium"));
-        /* PARA TESTEAR */ hotel.addRoom(new Room(201, 2, 1, "medium"));
-        /* PARA TESTEAR */ hotel.addRoom(new Room(202, 2, 1, "medium"));
-        /* PARA TESTEAR */ hotel.addRoom(new Room(203, 2, 1, "medium"));
-        /* PARA TESTEAR */ hotel.addRoom(new Room(204, 2, 1, "medium"));
+        /* PARA TESTEAR */ hotel.addRoom(new Room(103, 2, 1, "suit", 90));
+        /* PARA TESTEAR */ hotel.addRoom(new Room(104, 2, 1, "medium", 90));
+        /* PARA TESTEAR */ hotel.addRoom(new Room(105, 2, 1, "medium", 90));
+        /* PARA TESTEAR */ hotel.addRoom(new Room(201, 2, 1, "medium", 70));
+        /* PARA TESTEAR */ hotel.addRoom(new Room(202, 2, 1, "medium", 90));
+        /* PARA TESTEAR */ hotel.addRoom(new Room(203, 2, 1, "medium", 60));
+        /* PARA TESTEAR */ hotel.addRoom(new Room(204, 2, 1, "medium", 89));
 
         boolean menu = true;
         int option;
@@ -287,6 +287,10 @@ public class Main {
         saveToCsvFile("Employees.csv", employeeContent);
     }
 
+    /*SHOW METHODS:
+    They show menu options, in addition to printing some hotel class lists on the screen 
+    */
+
     private static void showHotelMenu() {
         keyboard.writeLine("\n- - - - - - - - - - - - - - - - HOTEL " + hotel.getHotelName().toUpperCase()
                 + " MENU - - - - - - - - - - - - - - - -"
@@ -308,7 +312,8 @@ public class Main {
                 + "\n(2) Cuantity of room beds"
                 + "\n(3) Cuantity of room baths"
                 + "\n(4) Room type"
-                + "\n(5) Go back.\n");
+                + "\n(5) Room price"
+                + "\n(6) Go back.\n");
     }
 
     private static void showAdminMenu() {
@@ -387,7 +392,7 @@ public class Main {
                 catcher = false;
             }
         }
-        
+
         while (name.equals(hotel.getHotelName())) {
             name = keyboard.inputText("\nName entered is the actual hotel name.\n- Enter another name: ");
         }
@@ -419,7 +424,7 @@ public class Main {
                 catcher = false;
             }
         }
-        
+
         while (email.equals(hotel.getHotelEmail())) {
             email = keyboard.inputText("\nEmail entered is the actual hotel email.\n- Enter another email: ");
         }
@@ -594,19 +599,23 @@ public class Main {
 
         switch (option) {
             case 1 -> {
-                hotel.setHotelName(keyboard.inputText("\n- Enter new hotel name: "));
+                String name=keyboard.inputText("\n- Enter new hotel name: ");
+                hotel.setHotelName(name);
             }
 
             case 2 -> {
-                hotel.setHotelAdress(keyboard.inputText("\n- Enter new hotel adress: "));
+                String adress = keyboard.inputText("\n- Enter new hotel adress: ");
+                hotel.setHotelAdress(adress);
             }
 
             case 3 -> {
-                hotel.setHotelEmail(keyboard.inputText("\n- Enter new hotel email: "));
+                String email = keyboard.inputText("\n- Enter new hotel email: ");
+                hotel.setHotelEmail(email);
             }
 
             case 4 -> {
-                hotel.setHotelPhoneNum(keyboard.inputLong("\n- Enter new hotel phone number: "));
+                long phoneNumber = keyboard.inputLong("\n- Enter new hotel phone number: ");
+                hotel.setHotelPhoneNum(phoneNumber);
             }
 
             case 5 -> {
@@ -643,20 +652,26 @@ public class Main {
 
                 switch (option) {
                     case 1 -> {
-                        room.setRoomNum(keyboard.inputInt("\n- Enter new room number for " + room.getRoomNum()));
+                        int roomNumber = keyboard.inputInt("\n- Enter new room number for " + room.getRoomNum());
+                        room.setRoomNum(roomNumber);
                     }
                     case 2 -> {
-                        room.setRoomBeds(
-                                keyboard.inputInt("\n- Enter new cuantity of beds for room " + room.getRoomBeds()));
+                        int beds = keyboard.inputInt("\n- Enter new cuantity of beds for room " + room.getRoomBeds());
+                        room.setRoomBeds(beds);
                     }
                     case 3 -> {
-                        room.setRoomBaths(keyboard
-                                .inputInt("\n- Enter new cuantity of beds for room " + room.getRoomBaths()));
+                        int baths = keyboard.inputInt("\n- Enter new cuantity of beds for room " + room.getRoomBaths());
+                        room.setRoomBaths(baths);
                     }
                     case 4 -> {
-                        room.setRoomType(keyboard.inputText("\n- Enter new type for room " + room.getRoomType()));
+                        String roomType = keyboard.inputText("\n- Enter new type for room " + room.getRoomType());
+                        room.setRoomType(roomType);
                     }
                     case 5 -> {
+                        double price = keyboard.inputDouble("\n- Enter new price for room " + room.getPrice());
+                        room.setPrice(price);
+                    }
+                    case 6 -> {
                         keyboard.writeLine("\nLeaving...");
                         condition = false;
                     }
@@ -750,7 +765,8 @@ public class Main {
         int beds = keyboard.inputInt("\n- Cuantity of beds: ");
         int baths = keyboard.inputInt("\n- Cuantity of baths: ");
         String type = keyboard.inputText("\n- Room type (Basic/Medium/Suit): ");
-        hotel.addRoom(new Room(roomNumber, beds, baths, type.toLowerCase()));
+        double price = keyboard.inputDouble("\n- Room price per night: ");
+        hotel.addRoom(new Room(roomNumber, beds, baths, type.toLowerCase(), price));
         keyboard.writeLine("Room added succesfully.\n");
     }
 
@@ -775,7 +791,6 @@ public class Main {
             }
         }
 
-        
         catcher = true;
 
         String email = keyboard.inputText("\n- Enter employee's email adress: ");
@@ -815,7 +830,7 @@ public class Main {
         }
 
         String position = keyboard.inputText("\n- Enter employee's position: ");
-        
+
         while (catcher) {
             try {
                 Double.parseDouble(position);
@@ -824,7 +839,7 @@ public class Main {
                 catcher = false;
             }
         }
-        
+
         double salary = keyboard.inputDouble("\n- Enter employee's salary: ");
         hotel.addEmployee(new Employee(name, email, phoneNumber, id, position, salary));
         keyboard.writeLine("\n- Employee added succesfully.");
