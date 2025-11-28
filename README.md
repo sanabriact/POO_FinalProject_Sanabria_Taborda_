@@ -57,7 +57,7 @@ Por términos de seguridad, se debe garantizar la protección de la información
 2
 
 - - - - - - - - ACTIVE RESERVATIONS - - - - - - - - - -
-Reservation: {reservationNumber: 1, room: 101, roomType: basic, guest: mario bravo, status: true, initial date: 2/3/2025, final date: 5/3/2025}
-Reservation: {reservationNumber: 2, room: 103, roomType: medium, guest: mi papa, status: true, initial date: 2/3/2025, final date: 6/3/2025}
+Reservation: {reservationNumber: 1, room: 101, roomType: basic, guest: Juan Felipe Sanabria, status: true, initial date: 2/3/2025, final date: 5/3/2025}
+Reservation: {reservationNumber: 2, room: 103, roomType: medium, guest: Jerónimo Taborda, status: true, initial date: 2/3/2025, final date: 6/3/2025}
 ```
 
