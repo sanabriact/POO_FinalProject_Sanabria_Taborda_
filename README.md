@@ -26,7 +26,6 @@ Por último, en Empleados permite administrar toda la información acerca del pe
 Por términos de seguridad, se debe garantizar la protección de la información cambiada, por lo que esta opción permite guardar todos los cambios hechos (a pesar de que se hagan automáticamente al hacer cualquier cambio en los incisos 1 o 2) y salir del programa automaticamente. 
 
 ### Ejemplo de entrada y salida
-### Ejemplo de interacción en consola
 
 ```text
 - - - - - - - - - - - - - - - - HOTEL GOOD VIBES MENU - - - - - - - - - - - - - - - -
@@ -58,5 +57,5 @@ Por términos de seguridad, se debe garantizar la protección de la información
 2
 
 - - - - - - - - ACTIVE RESERVATIONS - - - - - - - - - -
-Reservation: {reservationNumber: 1, room: 101, roomType: basic, guest: mario bravo, status: true, initial date: 2/3/2025, final date: }
+Reservation: {reservationNumber: 1, room: 101, roomType: basic, guest: mario bravo, status: true, initial date: 2/3/2025, final date: 5/3/2025}
 Reservation: {reservationNumber: 2, room: 103, roomType: medium, guest: mi papa, status: true, initial date: 2/3/2025, final date: 6/3/2025}
